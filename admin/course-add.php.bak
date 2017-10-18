@@ -1,0 +1,84 @@
+<?php
+  $edit=  $_GET['edit'];
+  $data=  $_GET['data'];
+  $hiden='<input type="hidden" name="action" value="add">';
+  $cname=$shortD=$longD=$smsg="";
+  $sstatus="w3-hide";
+  $con = mysqli_connect("localhost","root","admin","asd-project");
+
+  if($edit!=""){
+    $hiden='<input type="hidden" name="action" value="edit">';
+    $query="SELECT * FROM `courses` WHERE courseId=$edit";
+    $result = mysqli_query($con,$query) or die(mysqli_error());
+    $row=$result->fetch_assoc();
+    $cname=$row['courseName'];
+    $shortD=$row['shortD'];
+    $longD=$row['longD'];
+  }
+  
+  if($data!=""){
+    $sstatus="w3-show";
+    $smsg=$data;
+  }
+  
+  if ($_SERVER["REQUEST_METHOD"]=="POST"){
+    if ($_POST['action']=="add") { 
+      $coursename = $_POST['coursename'];
+      $shortd = $_POST['shortd'];
+      $longd = $_POST['longd'];
+      $query = "INSERT into `courses` (courseName, shortD, longD) VALUES ('$coursename', '$shortd', '$longd')";
+      $result = mysqli_query($con,$query);
+      if($result){
+        $smsg="New course is successfully created";
+        header("Location: index.php?page=course-add&data=$smsg");
+        }
+      }else {}
+  }
+ 
+?>
+
+<ol class="breadcrumb w3-card-2">
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i><a href="index.php?page=course">Courses</a><i class="fa fa-angle-right"></i>Add Course</li>
+            </ol>
+<!--grid-->
+<div class="w3-panel w3-green w3-round <?php echo $sstatus; ?>">
+<h3>Success!</h3>
+<p><?php echo $smsg; ?></p>
+</div>
+ 	<div class="validation-system w3-card-2">
+ 		
+ 		<div class="validation-form">
+ 	<!---->
+  	    
+        <form method="POST" action="course-add.php">
+         	<div class="vali-form">
+             <?php echo $hiden; ?>
+            <div class="col-md-12 form-group1">
+              <label class="control-label">Course Name</label>
+              <input type="text" placeholder="Enter New Course Name" required="" name="coursename" value="<?php echo $cname; ?>">
+            </div>
+            <div class="col-md-12 form-group1">
+              <label class="control-label">Short Decription</label>
+              <input type="text" placeholder="Enter Short Decription" required="" name="shortd" value="<?php echo $shortD; ?>">
+            </div>
+            <div class="clearfix"> </div>
+            <div class="col-md-12 form-group1 ">
+              <label class="control-label">Long Description</label>
+              <textarea  placeholder="Enter Long Decription" required="" name="longd" value="<?php echo $longD; ?>"></textarea>
+            </div>
+            
+             <div class="clearfix"> </div>
+          
+            <div class="col-md-12 form-group">
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="reset" class="btn btn-default">Reset</button>
+            </div>
+          <div class="clearfix"> </div>
+        </form>
+       
+ 	<!---->
+ </div>
+
+</div>
+</div>
+<div class="w3-card-2">
