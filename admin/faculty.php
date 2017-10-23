@@ -1,5 +1,5 @@
 <?php
-    $con = mysqli_connect("localhost","root","admin","asd-project");
+
     $card='<div class="w3-row-padding">';
     $count=0;
 	$query="SELECT * FROM `faculty`,`users` WHERE status='approved' AND `users`.id = `faculty`.facultyId";
@@ -10,7 +10,7 @@
         $card.='
                 <div class="w3-third">
                     <div class="w3-card-4" style="width:92%;max-width:300px;margin-top:12px;">
-                        <img src="../images/avatar.png" alt="Avatar" style="width:100%;opacity:0.85">
+                        <img src="'.getUserAvatar($fid).'" alt="Avatar" style="width:100%;opacity:0.85">
                         <div class="w3-container">
                             <h4><b>'.$row['name'].'</b></h4>    
                             <p>
@@ -21,8 +21,8 @@
                                 <strong>Phone : </strong>'.$row['mobile'].'
                             </p> 
             
-                            <a class="w3-button w3-green" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=faculty-view&&id='.$fid.'">VIEW</a>
-                            <a class="w3-button w3-red" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="">DELETE</a>
+                            <a class="w3-button w3-green w3-hover-red w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=faculty-view&&id='.$fid.'">VIEW</a>
+                            <a class="w3-button w3-red w3-hover-yellow w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="">DELETE</a>
                         </div>
                      </div>
                 </div>';
@@ -37,7 +37,7 @@
                 <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i> Faculty</li>
             </ol>
 <!--four-grids here-->
-<div class="w3-card-4" style="width:100%">
+<div class="w3-card-4 validation-system validation-form" style="width:100%">
     <header class="w3-container w3-light-grey">
       <h3>Faculty Requests</h3>
     </header>
@@ -48,7 +48,7 @@
   </div><br />
 </div>
 
-<div class="w3-card-4">
+<div class="w3-card-4 validation-system validation-form">
 <header class="w3-container w3-light-grey">
       <h3>All Faculty Members</h3>
     </header>

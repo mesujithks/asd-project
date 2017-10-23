@@ -5,12 +5,56 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php 
-	require("connection.php");
+	require('../connection.php');
+	require("../auth.php");
+
+	/*if(getStatus()!="approved")
+		$home="verify.php";
+	else*/
+		$home="dashboard.php";
+	
+	function getName(){
+		$sid=$_SESSION['user_id'];
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$sid";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["name"];
+	}
+	
+	function getAvatar(){
+		$sid=$_SESSION['user_id'];
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$sid";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["image"];
+	}
+	
+	function getStatus(){
+		$sid=$_SESSION['user_id'];
+		require('../connection.php');
+		$query="SELECT * FROM `students` WHERE studentId=$sid";
+		$result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["status"];
+	}
+
+	
+	function getUserAvatar($id){
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$id";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["image"];
+	}
+
+	
 ?>
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Admin Panel - Course Portal | Home</title>
+<title>Student Panel - Course Portal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -30,6 +74,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- lined-icons -->
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
 <!-- //lined-icons -->
+<style>
+	.four i.glyphicon {
+    color: #fff;
+    font-size: 32px;
+}
+.four h3 {
+    font-size: 20px;
+    color: #fff;
+    margin: 14px 0;
+}
+.four h4 {
+    font-size: 30px;
+    color: #fff;
+    margin: 0;
+}
+.blak{color:#333333!important;background-color:#333333!important}
+.prfil-pic {
+    border-radius: 50%;
+    border: 3px solid #fff;
+    width: 100px;
+    height: 100px;
+}
+</style>
 </head> 
 <body>
    <div class="page-container">
@@ -37,14 +104,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <div class="left-content">
 	   <div class="mother-grid-inner">
              <!--header start here-->
-				<div class="header-main">
-					<div class="logo-w3-agile w3-pink w3-text-white">
+				<div class="header-main w3-card-2">
+					<div class="logo-w3-agile w3-pink w3-text-whit e w3-card-2">
 								<img src="images/logo.png" width="50px" height="50px"><b>  Course Portal</b>
 							</div>
-					<div class="w3layouts-left">
+					<div class="w3layouts-left w3-card-2">
 							
 							<!--search-box-->
-								<div class="w3-search-box">
+								<div class="w3-search-box w3-card-2">
 									<form action="#" method="post">
 										<input type="text" placeholder="Search..." required="">	
 										<input type="submit" value="">					
@@ -52,7 +119,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</div><!--//end-search-box-->
 							<div class="clearfix"> </div>
 						 </div>
-						 <div class="w3layouts-right">
+						 <div class="w3layouts-right w3-card-2">
 							<div class="profile_details_left"><!--notifications of menu start -->
 								<ul class="nofitications-dropdown">
 									<li class="dropdown head-dpdn">
@@ -192,15 +259,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							
 							<div class="clearfix"> </div>				
 						</div>
-						<div class="profile_details w3l">		
+						<div class="profile_details w3l w3-card-2">		
 								<ul>
 									<li class="dropdown profile_details_drop">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<div class="profile_img">	
-												<span class="prfil-img"><img src="images/in4.jpg" alt=""> </span> 
+												<span class="prfil-img"><img src="<?php echo getAvatar(); ?>" alt=""> </span> 
 												<div class="user-name">
-													<p>Malorum</p>
-													<span>Administrator</span>
+													<p><?php echo getName(); ?></p>
+													<span>Student</span>
 												</div>
 												<i class="fa fa-angle-down"></i>
 												<i class="fa fa-angle-up"></i>
@@ -208,7 +275,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											</div>	
 										</a>
 										<ul class="dropdown-menu drp-mnu">
-											<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li> 
+											<li> <a href="index.php?page=profile-edit"><i class="fa fa-cog"></i> Settings</a> </li> 
 											<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
 											<li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
 										</ul>
@@ -224,30 +291,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		@$page=  $_GET['page'];
 		  if($page!="")
 		  {
-		  	if($page=="update_password")
-			{
-				include('update_password.php');
-			
-			}
-			if($page=="notification")
-			{
-				include('notification.php');
-			
-			}
-			if($page=="update_profile")
-			{
-				include('update_profile.php');
-			
-			}
-			if($page=="update_profile_pic")
-			{
-				include('update_profile_pic.php');
-			
+			switch($page){
+				case "course": include('course.php'); break;
+				case "course-view":	include("course-view.php"); break;
+				case "faculty":	include("faculty.php"); break;
+				case "faculty-request":	include("faculty-request.php"); break;
+				case "my-course":	include("my-course.php"); break;
+				case "profile-edit":	include("profile-edit.php"); break;
+				case "verify":	include("verify.php"); break;
+				default : include("errorpage.php"); break;
 			}
 		  }
 		  else
 		  {
-		  include('dashboard.php');
+		  include($home);
 		  }
 		  ?>
 		  <!-- container end-->
@@ -278,8 +335,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 <!--inner block end here-->
 <!--copy rights start here-->
-<div class="copyrights">
-	 <p>© 2016 Pooled. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+<br />
+<div class="copyrights ">
+<p>© 2017 Course Portal. All Rights Reserved</p>
 </div>	
 <!--COPY rights end here-->
 </div>
@@ -294,22 +352,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                            <div class="menu">
 									<ul id="menu" >
 										<li><a href="index.php"><i class="fa fa-tachometer"></i> <span title="Dashboard">Dashboard</span><div class="clearfix"></div></a></li>
-										
-										
-										 <li id="menu-academico" ><a href="inbox.php"><i class="fa fa-envelope nav_icon"></i><span title="Inbox">Inbox</span><div class="clearfix"></div></a></li>
-										 <li><a href="notification.php"><i class="fa fa-bell" aria-hidden="true"></i><span title="Notifications">Notifications</span><div class="clearfix"></div></a></li>
-										 <li><a href="notice.php"><i class="fa fa-file-text" aria-hidden="true"></i><span title="Notice">Notice</span><div class="clearfix"></div></a></li>
-										 <li><a href="faculty.php"><i class="fa fa-user" aria-hidden="true"></i><span title="Faculty">Faculty</span><div class="clearfix"></div></a></li>
-										 <li><a href="student.php"><i class="fa fa-user" aria-hidden="true"></i><span title="Students">Students</span><div class="clearfix"></div></a></li>
-										 <li><a href="course.php"><i class="fa fa-folder-open" aria-hidden="true"></i><span title="Courses">Courses</span><div class="clearfix"></div></a></li>
-										 <li><a href="exam.php"><i class="fa fa-calendar" aria-hidden="true"></i><span title="Exams">Exams</span><div class="clearfix"></div></a></li>
-										 <li><a href="disscussion.php"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
-										 <li><a href="chat.php"><i class="fa fa-comment" aria-hidden="true"></i><span title="Chats">Chats</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=inbox"><i class="fa fa-envelope nav_icon"></i><span title="Inbox">Inbox</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=notification"><i class="fa fa-bell" aria-hidden="true"></i><span title="Notifications">Notifications</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=notice"><i class="fa fa-file-text" aria-hidden="true"></i><span title="Notice">Notice</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=my-course"><i class="fa fa-list" aria-hidden="true"></i><span title="My Courses">My Courses</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=faculty"><i class="fa fa-user" aria-hidden="true"></i><span title="Faculties">Faculties</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=course"><i class="fa fa-folder-open" aria-hidden="true"></i><span title="All Courses">All Courses</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=exam"><i class="fa fa-calendar" aria-hidden="true"></i><span title="Exams">Exams</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=disscussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=chat"><i class="fa fa-comment" aria-hidden="true"></i><span title="Chats">Chats</span><div class="clearfix"></div></a></li>
 									
 						
 							        <li id="menu-academico" ><a href="#"><i class="fa fa-gear"></i>  <span>Account</span> <span class="fa fa-angle-right" style="float: right" title="Account"></span><div class="clearfix"></div></a>
 										 <ul id="menu-academico-sub" >
-											<li id="menu-academico-boletim" ><a href="settings.php">Settings</a></li>
+											<li id="menu-academico-boletim" ><a href="index.php?page=profile-edit">Settings</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="../logout.php">Logout</a></li>
 										  </ul>
 									 </li>

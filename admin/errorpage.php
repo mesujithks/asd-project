@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 
-<div class="w3-card-4" style="margin-top:12px;">
+<div class="w3-card-4 validation-system validation-form" style="margin-top:12px;">
 	<div class="container">
 		<div class="agile">
 			
@@ -20,7 +20,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<div class="clearfix"></div>
 			</div>
-			<div class="back w3-button w3-red" style="margin-bottom:12px;>
+			<div class="back w3-button w3-red w3-hover-red w3-round w3-card-2" style="margin-bottom:12px;>
 						<a href="index.php">Back to home</a>
 				</div>
 					

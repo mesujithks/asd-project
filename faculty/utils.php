@@ -6,7 +6,7 @@
     $dfcnt=getCount("discussion_question");
     $chtcnt=getCount("discussion_chatmaster");
     function getCount($table){
-        $con = mysqli_connect("localhost","root","admin","asd-project");
+        require('../connection.php');
         $query="SELECT COUNT(*) AS count FROM $table";
         $fid=$_SESSION['user_id'];
         if($table == "faculty_courses_taken")   $query="SELECT COUNT(*) AS count FROM $table WHERE facultyId=$fid";

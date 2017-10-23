@@ -6,7 +6,7 @@
     $dfcnt=getCount("discussion_question");
     $chtcnt=getCount("discussion_chatmaster");
     function getCount($table){
-        $con = mysqli_connect("localhost","root","admin","asd-project");
+        require("../connection.php");
         $query="SELECT COUNT(*) AS count FROM $table";
         $result = mysqli_query($con,$query) or die(mysqli_error());
         $row=$result->fetch_assoc();

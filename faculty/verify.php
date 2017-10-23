@@ -1,9 +1,10 @@
 <?php
+  require('../connection.php');
   $fid=$_SESSION['user_id'];
   $emp=$addr=$flag=$smsg="";
   $dep="CSE";
   $sstatus="w3-hide";
-  $con = mysqli_connect("localhost","root","admin","asd-project");
+  
   
   extract($_POST);
   

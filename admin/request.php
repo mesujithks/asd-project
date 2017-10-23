@@ -1,7 +1,7 @@
 <?php
-    $con = mysqli_connect("localhost","root","admin","asd-project");
-    extract($_GET);
 
+    extract($_GET);
+    require("../connection.php");
     if($action=="approved"){
         $query = "UPDATE `faculty` SET `status` = 'approved' WHERE `faculty`.`facultyId` ='$id'";
         $result = mysqli_query($con,$query);

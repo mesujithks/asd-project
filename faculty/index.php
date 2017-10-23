@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php 
-	require('connection.php');
+	require('../connection.php');
 	require("../auth.php");
 
 	if(getStatus()!="approved")
@@ -15,7 +15,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	
 	function getName(){
 		$fid=$_SESSION['user_id'];
-		$con = mysqli_connect("localhost","root","admin","asd-project");
+		require('../connection.php');
 		$query="SELECT * FROM `users` WHERE id=$fid";
         $result = mysqli_query($con,$query) or die(mysqli_error());
         $row=$result->fetch_assoc();
@@ -24,7 +24,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	
 	function getAvatar(){
 		$fid=$_SESSION['user_id'];
-		$con = mysqli_connect("localhost","root","admin","asd-project");
+		require('../connection.php');
 		$query="SELECT * FROM `users` WHERE id=$fid";
         $result = mysqli_query($con,$query) or die(mysqli_error());
         $row=$result->fetch_assoc();
@@ -33,11 +33,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	
 	function getStatus(){
 		$fid=$_SESSION['user_id'];
-		$con = mysqli_connect("localhost","root","admin","asd-project");
+		require('../connection.php');
 		$query="SELECT * FROM `faculty` WHERE facultyId=$fid";
 		$result = mysqli_query($con,$query) or die(mysqli_error());
         $row=$result->fetch_assoc();
         return $row["status"];
+	}
+
+	
+	function getUserAvatar($id){
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$id";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["image"];
 	}
 ?>
 <!DOCTYPE HTML>
@@ -77,6 +86,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     font-size: 30px;
     color: #fff;
     margin: 0;
+}
+.blak{color:#333333!important;background-color:#333333!important}
+.prfil-pic {
+    border-radius: 50%;
+    border: 3px solid #fff;
+    width: 100px;
+    height: 100px;
 }
 </style>
 </head> 
@@ -257,7 +273,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											</div>	
 										</a>
 										<ul class="dropdown-menu drp-mnu">
-											<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li> 
+											<li> <a href="index.php?page=profile-edit"><i class="fa fa-cog"></i> Settings</a> </li> 
 											<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
 											<li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
 										</ul>
@@ -276,7 +292,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			switch($page){
 				case "course": include('course.php'); break;
 				case "course-view":	include("course-view.php"); break;
-				case "faculty":	include("faculty.php"); break;
+				case "content-add": include("content-add.php"); break;
+				case "my-course":	include("my-course.php"); break;
+				case "profile-edit":	include("profile-edit.php"); break;
 				case "faculty-request":	include("faculty-request.php"); break;
 				case "student":	include("student.php"); break;
 				default : include("errorpage.php"); break;
@@ -317,7 +335,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--copy rights start here-->
 <br />
 <div class="copyrights ">
-	 <p>© 2016 Pooled. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+<p>© 2017 Course Portal. All Rights Reserved</p>
 </div>	
 <!--COPY rights end here-->
 </div>
@@ -347,7 +365,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						
 							        <li id="menu-academico" ><a href="#"><i class="fa fa-gear"></i>  <span>Account</span> <span class="fa fa-angle-right" style="float: right" title="Account"></span><div class="clearfix"></div></a>
 										 <ul id="menu-academico-sub" >
-											<li id="menu-academico-boletim" ><a href="settings.php">Settings</a></li>
+											<li id="menu-academico-boletim" ><a href="index.php?page=profile-edit">Settings</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="../logout.php">Logout</a></li>
 										  </ul>
 									 </li>

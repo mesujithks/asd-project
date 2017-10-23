@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <?php 
-	require("connection.php");
+	require("../connection.php");
 	require("../auth.php");
 	$con = mysqli_connect("localhost","root","admin","asd-project");
 	$query="SELECT * FROM `notification` WHERE user_to='1' AND status='active'";
@@ -24,6 +24,36 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</li>';
 
 	}
+
+	
+	function getAvatar(){
+		$aid=$_SESSION['user_id'];
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$aid";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["image"];
+	}
+
+	function getUserAvatar($id){
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$id";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["image"];
+	}
+
+	function getCover($id){
+		require('../connection.php');
+		$query="SELECT * FROM `courses` WHERE courseId=$id";
+		$result = mysqli_query($con,$query) or die(mysqli_error());
+		if($result){
+			$row=$result->fetch_assoc();
+			return $row["courseImage"];
+		}
+        return "../images/default-c.jpg";
+	}
+	
 	
 ?>
 <!DOCTYPE HTML>
@@ -63,6 +93,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     font-size: 30px;
     color: #fff;
     margin: 0;
+}
+.prfil-pic {
+    border-radius: 50%;
+    border: 3px solid #fff;
+    width: 100px;
+    height: 100px;
 }
 </style>
 </head> 
@@ -209,7 +245,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<li class="dropdown profile_details_drop">
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<div class="profile_img">	
-												<span class="prfil-img"><img src="images/in4.jpg" alt=""> </span> 
+												<span class="prfil-img"><img src="<?php echo getAvatar(); ?>" alt=""> </span> 
 												<div class="user-name">
 													<p>Malorum</p>
 													<span>Administrator</span>
@@ -220,7 +256,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											</div>	
 										</a>
 										<ul class="dropdown-menu drp-mnu">
-											<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li> 
+											<li> <a href="index.php?page=profile-edit"><i class="fa fa-cog"></i> Settings</a> </li> 
 											<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
 											<li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
 										</ul>
@@ -240,7 +276,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "course": include('course.php'); break;
 				case "course-add":	include("course-add.php"); break;
 				case "faculty":	include("faculty.php"); break;
+				case "profile-edit":	include("profile-edit.php"); break;
 				case "faculty-request":	include("faculty-request.php"); break;
+				case "faculty-course":	include("faculty-course.php"); break;
 				case "student":	include("student.php"); break;
 				default : include("errorpage.php"); break;
 			}
@@ -300,8 +338,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--copy rights start here-->
 <br />
 <div class="copyrights w3-card-2 w3-row">
-
-	 <p>© 2016 Pooled. All Rights Reserved | Design by  <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
+	 <p>© 2017 Course Portal. All Rights Reserved</p>
 </div>	
 <!--COPY rights end here-->
 </div>
@@ -331,7 +368,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						
 							        <li id="menu-academico" ><a href="#"><i class="fa fa-gear"></i>  <span>Account</span> <span class="fa fa-angle-right" style="float: right" title="Account"></span><div class="clearfix"></div></a>
 										 <ul id="menu-academico-sub" >
-											<li id="menu-academico-boletim" ><a href="settings.php">Settings</a></li>
+											<li id="menu-academico-boletim" ><a href="index.php?page=profile-edit">Settings</a></li>
 											<li id="menu-academico-avaliacoes" ><a href="../logout.php">Logout</a></li>
 										  </ul>
 									 </li>
