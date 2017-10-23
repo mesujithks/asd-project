@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 04, 2017 at 05:21 PM
--- Server version: 10.1.26-MariaDB-1
+-- Generation Time: Oct 23, 2017 at 07:09 PM
+-- Server version: 10.1.24-MariaDB-6
 -- PHP Version: 7.0.22-3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -43,7 +43,7 @@ CREATE TABLE `courses` (
   `courseName` varchar(50) NOT NULL,
   `shortD` varchar(100) NOT NULL,
   `longD` varchar(1000) NOT NULL,
-  `courseImage` varchar(100) NOT NULL DEFAULT 'images/default-c.jpg'
+  `courseImage` varchar(100) NOT NULL DEFAULT '../images/default-c.jpg'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -51,9 +51,10 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`courseId`, `courseName`, `shortD`, `longD`, `courseImage`) VALUES
-(1, 'Python', 'hello python', 'python is easy to learn..!!', 'images/default-c.jpg'),
-(2, 'PHP', 'this is php', 'welcome php', 'images/default-c.jpg'),
-(3, 'Java', 'hello java', 'java is powerful', 'images/default-c.jpg');
+(1, 'Python', 'hello python', 'python is easy to learn..!!', '../images/course-cover-1.jpg'),
+(2, 'PHP', 'this is php', 'welcome php new', '../images/course-cover-2.jpg'),
+(3, 'Java', 'hello java', 'java is powerful', '../images/course-cover-3.jpg'),
+(4, 'Test', 'image test', 'upload test', '../images/course-cover-4.jpg');
 
 -- --------------------------------------------------------
 
@@ -66,8 +67,17 @@ CREATE TABLE `course_content` (
   `courseId` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `body` varchar(1000) NOT NULL,
-  `post_date` datetime NOT NULL
+  `post_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `post_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `course_content`
+--
+
+INSERT INTO `course_content` (`conentId`, `courseId`, `title`, `body`, `post_date`, `post_by`) VALUES
+(1, 1, 'tset', 'ssjhfsjdf', '2017-10-21 15:12:22', 4),
+(2, 1, 'test title', 'sdsg', '2017-10-21 15:41:37', 4);
 
 -- --------------------------------------------------------
 
@@ -234,7 +244,7 @@ CREATE TABLE `faculty` (
 
 INSERT INTO `faculty` (`facultyId`, `empId`, `department`, `address`, `status`) VALUES
 (4, 12345, 'EC', 'test address', 'approved'),
-(5, 777, 'CSE', 'kandathiparambil', 'pending');
+(5, 777, 'CSE', 'kandathiparambil', 'approved');
 
 -- --------------------------------------------------------
 
@@ -244,8 +254,22 @@ INSERT INTO `faculty` (`facultyId`, `empId`, `department`, `address`, `status`) 
 
 CREATE TABLE `faculty_courses_taken` (
   `facultyId` int(11) NOT NULL,
-  `courseId` int(11) NOT NULL
+  `courseId` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `faculty_courses_taken`
+--
+
+INSERT INTO `faculty_courses_taken` (`facultyId`, `courseId`, `status`) VALUES
+(4, 1, 'approved'),
+(4, 2, 'approved'),
+(5, 3, 'approved'),
+(5, 2, 'pending'),
+(5, 1, 'pending'),
+(4, 3, 'approved'),
+(4, 4, 'pending');
 
 -- --------------------------------------------------------
 
@@ -285,7 +309,14 @@ CREATE TABLE `notification` (
 
 INSERT INTO `notification` (`notificationId`, `status`, `user_from`, `user_to`, `heading`, `description`, `page`, `time`, `action`) VALUES
 (3, 'read', 4, 1, 'Faculty Join Request', 'Something...', 'faculty-request', '2017-10-04 04:02:34', 'done'),
-(4, 'read', 5, 1, 'Faculty Join Request', 'Something...', 'faculty-request', '2017-10-04 04:13:13', 'pending');
+(4, 'read', 5, 1, 'Faculty Join Request', 'Something...', 'faculty-request', '2017-10-04 04:13:13', 'done'),
+(5, 'read', 4, 1, 'Faculty Course Registraion Request', 'Something...', 'faculty-course', '2017-10-20 13:32:56', 'done'),
+(6, 'read', 4, 1, 'Faculty Course Registraion Request', 'Something...', 'faculty-course', '2017-10-20 13:55:55', 'done'),
+(7, 'read', 5, 1, 'Faculty Course Registraion', 'Something...', 'faculty-course', '2017-10-21 11:41:07', 'done'),
+(8, 'read', 5, 1, 'Faculty Course Registraion', 'Something...', 'faculty-course', '2017-10-21 11:41:14', 'pending'),
+(9, 'read', 5, 1, 'Faculty Course Registraion', 'Something...', 'faculty-course', '2017-10-21 11:41:21', 'pending'),
+(10, 'read', 4, 1, 'Faculty Course Registraion', 'Something...', 'faculty-course', '2017-10-21 12:04:03', 'done'),
+(11, 'read', 4, 1, 'Faculty Course Registraion', 'Something...', 'faculty-course', '2017-10-22 10:07:56', 'pending');
 
 -- --------------------------------------------------------
 
@@ -294,16 +325,21 @@ INSERT INTO `notification` (`notificationId`, `status`, `user_from`, `user_to`, 
 --
 
 CREATE TABLE `students` (
-  `studentId` int(11) NOT NULL
+  `studentId` int(11) NOT NULL,
+  `admno` int(11) NOT NULL,
+  `dept` varchar(30) NOT NULL,
+  `addrs` text NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'incomplete'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`studentId`) VALUES
-(2),
-(3);
+INSERT INTO `students` (`studentId`, `admno`, `dept`, `addrs`, `status`) VALUES
+(2, 0, '', '', 'incomplete'),
+(3, 0, '', '', 'incomplete'),
+(6, 1234, 'CSE', 'test address', 'complete');
 
 -- --------------------------------------------------------
 
@@ -315,6 +351,15 @@ CREATE TABLE `student_courses_taken` (
   `stdId` int(11) NOT NULL,
   `crsId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `student_courses_taken`
+--
+
+INSERT INTO `student_courses_taken` (`stdId`, `crsId`) VALUES
+(6, 1),
+(6, 2),
+(6, 3);
 
 -- --------------------------------------------------------
 
@@ -330,7 +375,7 @@ CREATE TABLE `users` (
   `type` varchar(10) NOT NULL,
   `mobile` bigint(11) NOT NULL,
   `gender` varchar(40) NOT NULL,
-  `image` varchar(50) NOT NULL DEFAULT '/images/avatar.png',
+  `image` varchar(50) NOT NULL DEFAULT '../images/avatar.png',
   `dob` date NOT NULL,
   `join_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -340,11 +385,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `type`, `mobile`, `gender`, `image`, `dob`, `join_date`) VALUES
-(1, 'Administrator', 'admin@host.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 1234567890, 'M', '/images/avatar.png', '2017-12-05', '2017-10-01 10:33:43'),
-(2, 'sujith', 'mesujithks3@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'student', 9656008103, 'M', '/images/avatar.png', '1997-12-05', '2017-10-01 11:12:50'),
-(3, 'test', 'test@host.com', 'cc03e747a6afbbcbf8be7668acfebee5', 'student', 1234567890, 'M', '/images/avatar.png', '1991-01-01', '2017-10-01 11:26:52'),
-(4, 'Faculty 1', 'faculty@host.com', '21232f297a57a5a743894a0e4a801fc3', 'faculty', 9876543210, 'F', 'images/avatar.png', '1997-07-26', '2017-10-01 15:50:28'),
-(5, 'Ajaydev', 'ajay@host.com', '21232f297a57a5a743894a0e4a801fc3', 'faculty', 9037861390, 'M', '/images/avatar.png', '1997-04-20', '2017-10-04 04:12:41');
+(1, 'Administrator', 'admin@host.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 1234567890, 'M', '../images/avatar-1.jpg', '2017-12-05', '2017-10-01 10:33:43'),
+(2, 'sujith', 'mesujithks3@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'student', 9656008103, 'M', '../images/avatar.png', '1997-12-05', '2017-10-01 11:12:50'),
+(3, 'test', 'test@host.com', 'cc03e747a6afbbcbf8be7668acfebee5', 'student', 1234567890, 'M', '../images/avatar.png', '1991-01-01', '2017-10-01 11:26:52'),
+(4, 'Sujith K S', 'faculty@host.com', '21232f297a57a5a743894a0e4a801fc3', 'faculty', 1234557891, 'M', '../images/avatar-4.jpg', '2017-10-03', '2017-10-01 15:50:28'),
+(5, 'Ajaydev', 'ajay@host.com', '21232f297a57a5a743894a0e4a801fc3', 'faculty', 9037861390, 'M', '../images/avatar-5.jpg', '1997-04-22', '2017-10-04 04:12:41'),
+(6, 'Sujith K S', 'student@host.com', '21232f297a57a5a743894a0e4a801fc3', 'student', 1234557891, 'M', '../images/avatar-6.jpg', '2017-10-03', '2017-10-19 19:21:12');
 
 --
 -- Indexes for dumped tables
@@ -367,7 +413,8 @@ ALTER TABLE `courses`
 --
 ALTER TABLE `course_content`
   ADD PRIMARY KEY (`conentId`),
-  ADD KEY `courseId` (`courseId`);
+  ADD KEY `courseId` (`courseId`),
+  ADD KEY `post_by` (`post_by`);
 
 --
 -- Indexes for table `discussion_answer`
@@ -500,7 +547,12 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `courseId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `course_content`
+--
+ALTER TABLE `course_content`
+  MODIFY `conentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `discussion_answer`
 --
@@ -550,12 +602,12 @@ ALTER TABLE `notice`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `notificationId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
@@ -570,7 +622,8 @@ ALTER TABLE `admin`
 -- Constraints for table `course_content`
 --
 ALTER TABLE `course_content`
-  ADD CONSTRAINT `course_content_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `courses` (`courseId`);
+  ADD CONSTRAINT `course_content_ibfk_1` FOREIGN KEY (`courseId`) REFERENCES `courses` (`courseId`),
+  ADD CONSTRAINT `course_content_ibfk_2` FOREIGN KEY (`post_by`) REFERENCES `faculty` (`facultyId`);
 
 --
 -- Constraints for table `discussion_answer`

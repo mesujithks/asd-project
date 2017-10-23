@@ -1,30 +1,21 @@
-<?php
-$a="w3-grren";
-$b="w3-show";
-echo $a." ".$b;
-function getName($id){
-    require('connection.php');
-    $query="SELECT name FROM users WHERE id='$id'";
-    echo "hi";
-    $result = mysqli_query($con,$query) or die(mysqli_error());
-    if($result){
-        $row=$result->fetch_assoc();
-        echo $row["name"];
-    }
-    return "";
-}
-echo getName(4);
-?>
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<form action="upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="fileToUpload">
-    <input type="submit" value="Upload Image" name="submit">
+<form action="<?php print $PHP_SELF?>" enctype="multipart/form-data" method="post">
+Last name:<br /> <input type="text" name="name" value="" /><br />
+class notes:<br /> <input type="file" name="classnotes" value="" /><br />
+  <input type="submit" name="submit" value="Submit Notes" />
 </form>
 
-</body>
-</html>
+<?php
+ define ("filesplace","./");
+
+ if (is_uploaded_file($_FILES['classnotes']['tmp_name'])) {
+
+ if ($_FILES['classnotes']['type'] != "application/pdf") {
+ echo "<p>Class notes must be uploaded in PDF format.</p>";
+ } else {
+ $name = $_POST['name'];
+ $result = move_uploaded_file($_FILES['classnotes']['tmp_name'], filesplace."/$name.pdf");
+ if ($result == 1) echo "<p>Upload done .</p>";
+ else echo "<p>Sorry, Error happened while uploading . </p>";
+} #endIF
+ } #endIF
+?>

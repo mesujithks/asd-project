@@ -47,6 +47,7 @@
 <link rel="stylesheet" href="css/w3-theme-black.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
 
 <link href="css/plugin/sidebar-menu.css" rel="stylesheet" type="text/css" />
     <link href="css/plugin/animate.css" rel="stylesheet" type="text/css" />
@@ -108,7 +109,7 @@ body, html {
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
-  <div class="w3-bar w3-theme-d3 w3-card-2" id="myNavbar">
+  <div class="w3-bar w3-theme-d3 w3-card-2 w3-opacity-min" id="myNavbar">
     <a href="tryw3css_templates_startup.htm#home" class="w3-bar-item w3-button w3-wide">LOGO</a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small w3-hide-medium">
@@ -241,30 +242,13 @@ body, html {
 
 <!-- About Section -->
 <div class="w3-container" style="padding:128px 16px" id="about">
-  <h3 class="w3-center">ABOUT THE COMPANY</h3>
-  <p class="w3-center w3-large">Key features of our company</p>
-  <div class="w3-row-padding w3-center" style="margin-top:64px">
-    <div class="w3-quarter">
-      <i class="fa fa-desktop w3-margin-bottom w3-jumbo w3-center"></i>
-      <p class="w3-large">Responsive</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-    <div class="w3-quarter">
-      <i class="fa fa-heart w3-margin-bottom w3-jumbo"></i>
-      <p class="w3-large">Passion</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-    <div class="w3-quarter">
-      <i class="fa fa-diamond w3-margin-bottom w3-jumbo"></i>
-      <p class="w3-large">Design</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-    <div class="w3-quarter">
-      <i class="fa fa-cog w3-margin-bottom w3-jumbo"></i>
-      <p class="w3-large">Support</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-    </div>
-  </div>
+  <h3 class="w3-center">ABOUT THE COURSE PORTAL</h3>
+  <p class="w3-center w3-large">
+  This project aims at creating a Courses portal for a campus/organization. This allows registered users of the system to join a course available in the site and access the materials published for the course. People can register themselves as students of a course or Faculty for a course. When a person registers himself as a Faculty, an approval mechanism is triggered which sends an email to the Administrator for approving the person as a Faculty. There will be an admin approval page where admin can approve the faculty members for the course.
+
+The course home page contain the title of the course and a brief description. There will be a discussion board for each course where students can interact, an announcement section, which contains the latest announcements, and a course content section which gives the links for the material available for the course. For faculty members there will be an extra link for uploading the course content in a zip file format. The course content will be HTML pages, which should be uploaded in the zip file format. There should be a mechanism for the faculty members to create a test for the course specifying the test title and a set of multiple-choice questions and duration of time of the test.
+
+The main purpose of this project is to help students who need more knowledge on a specific topic, and to those who need help in studying.</p>
 </div>
 
 <!-- Course Section -->
