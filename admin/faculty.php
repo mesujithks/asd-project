@@ -9,7 +9,7 @@
         $fid=$row['id'];
         $card.='
                 <div class="w3-third">
-                    <div class="w3-card-4" style="width:92%;max-width:300px;margin-top:12px;">
+                    <div class="w3-card-2" style="width:92%;max-width:300px;margin-top:12px;">
                         <img src="'.getUserAvatar($fid).'" alt="Avatar" style="width:100%;opacity:0.85">
                         <div class="w3-container">
                             <h4><b>'.$row['name'].'</b></h4>    
@@ -21,7 +21,7 @@
                                 <strong>Phone : </strong>'.$row['mobile'].'
                             </p> 
             
-                            <a class="w3-button w3-green w3-hover-red w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=faculty-view&&id='.$fid.'">VIEW</a>
+                            <a class="w3-button w3-green w3-hover-red w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=view-faculty&id='.$fid.'">VIEW</a>
                             <a class="w3-button w3-red w3-hover-yellow w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="">DELETE</a>
                         </div>
                      </div>
@@ -45,7 +45,7 @@
       <p>CEO at Mighty Schools. Marketing and Advertising. Seeking a new job and new opportunities.</p><br>
     </div>
     <a class="w3-button w3-block w3-dark-grey w3-hover-blue" href="index.php?page=faculty-request">View Requests</a>
-  </div><br />
+  </div>
 </div>
 
 <div class="w3-card-4 validation-system validation-form">
@@ -57,3 +57,4 @@
     </div>
 </div><br />
 </div>
+<div>

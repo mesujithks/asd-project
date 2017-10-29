@@ -7,7 +7,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <?php 
 	require("../connection.php");
 	require("../auth.php");
-	$con = mysqli_connect("localhost","root","admin","asd-project");
 	$query="SELECT * FROM `notification` WHERE user_to='1' AND status='active'";
 	$result = mysqli_query($con,$query) or die(mysqli_error());
 	$notifc=mysqli_num_rows($result);
@@ -94,6 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     color: #fff;
     margin: 0;
 }
+.blak{color:#333333!important;background-color:#333333!important}
 .prfil-pic {
     border-radius: 50%;
     border: 3px solid #fff;
@@ -275,11 +275,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			switch($page){
 				case "course": include('course.php'); break;
 				case "course-add":	include("course-add.php"); break;
+				case "course-view":	include("course-view.php"); break;
 				case "faculty":	include("faculty.php"); break;
 				case "profile-edit":	include("profile-edit.php"); break;
 				case "faculty-request":	include("faculty-request.php"); break;
 				case "faculty-course":	include("faculty-course.php"); break;
 				case "student":	include("student.php"); break;
+				case "view-student":	include("view-student.php"); break;
+				case "view-faculty":	include("view-faculty.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  	/*if($page=="update_password")

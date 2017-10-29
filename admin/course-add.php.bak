@@ -4,8 +4,7 @@
   $hiden='<input type="hidden" name="action" value="add">';
   $cname=$shortD=$longD=$smsg="";
   $sstatus="w3-hide";
-  $con = mysqli_connect("localhost","root","admin","asd-project");
-
+  require("../connection.php");
   if($edit!=""){
     $hiden='<input type="hidden" name="action" value="edit">';
     $query="SELECT * FROM `courses` WHERE courseId=$edit";

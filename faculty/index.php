@@ -297,6 +297,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "profile-edit":	include("profile-edit.php"); break;
 				case "faculty-request":	include("faculty-request.php"); break;
 				case "student":	include("student.php"); break;
+				case "view-student":	include("view-student.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  }

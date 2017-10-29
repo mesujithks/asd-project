@@ -13,7 +13,7 @@ while($row=$result->fetch_assoc()){
 <header class="w3-container w3-teal">
 <div class="w3-row">
 <div class="w3-half"><h4>'.$row['title'].'</h4></div>
-<div class="w3-half"><a class="w3-button w3-blue w3-hover-red w3-round w3-card-2 w3-right" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=content-add&id='.$id.'&cname='.$cname.'&eid='.$row['conentId'].'">EDIT</a></div>
+<div class="w3-half"><a class="w3-button w3-blue w3-hover-red w3-round w3-card-2 w3-right" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="">DELETE</a></div>
 </div>
 </header>
 <br />
@@ -42,16 +42,6 @@ $card.='</div>
 
 ?>
 
-<br />
-<div class="w3-card-4" style="width:100%">
-<header class="w3-container w3-light-grey">
-    <h3>Add New Course Content</h3>
-</header>
-<div class="w3-container">
-    <p>CEO at Mighty Schools. Marketing and Advertising. Seeking a new job and new opportunities.</p><br>
-</div>
-<a class="w3-button w3-block w3-green w3-hover-blue w3-ripple" href="index.php?page=content-add&id=<?php echo $id."&cname=".$cname; ?>">+ Add Course Content</a>
-</div>
 <br />
 <header class="w3-container w3-light-grey">
 <h3>All Courses Materials</h3>

@@ -9,7 +9,7 @@
         $cid=$row['courseId'];
         $card.='
         <div class="w3-third">
-            <div class="w3-card-4" style="width:92%;max-width:300px;margin-top:12px;">
+            <div class="w3-card-2" style="width:92%;max-width:300px;margin-top:12px;">
                 <img src="'.$row['courseImage'].'" alt="Avatar" style="width:100%;opacity:0.85">
                 <div class="w3-container">
                     <h4><b>'.$row['courseName'].'</b></h4>    

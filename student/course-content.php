@@ -3,7 +3,7 @@
 $card='<div class="w3-row-padding">';
 $count=0;
 require('../connection.php');
-$query="SELECT * FROM `course_content` WHERE courseId='$id'";
+$query="SELECT * FROM `course_content` WHERE courseId='$id' ORDER BY `post_date` DESC";
 $result = mysqli_query($con,$query) or die(mysqli_error());
 while($row=$result->fetch_assoc()){
     $count+=1;
@@ -15,7 +15,10 @@ while($row=$result->fetch_assoc()){
 </header>
 <br />
 <div class="w3-container">
-<p><strong>Description : </strong>'.$row['body'].'<br /></p>
+<p><strong>Description : </strong>'.$row['body'].'<br /></p>';
+if($row['attachment']!="")
+$card.='<p><strong>Attachment : </strong><a class="w3-button w3-red w3-hover-blue w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="'.$row['attachment'].'"><i class="fa fa-paperclip"></i> DOWNLOAD</a><br /></p>';
+$card.='
 </div>
 
 <footer class="w3-container w3-light-grey">

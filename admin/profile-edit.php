@@ -84,7 +84,7 @@ if($genda=="F"){
 ?>
 
 <ol class="breadcrumb w3-card-2">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Profile Edit</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Profile Edit</li>
             </ol>
 <!--grid-->
 <div class="w3-panel w3-green w3-round <?php echo $clr." ".$disp; ?>">
@@ -139,7 +139,7 @@ if($genda=="F"){
         </form>
  	<!---->
  </div>
-
+<div>
 </div>
 </div>
 <div class="w3-card-2">
