@@ -128,8 +128,7 @@
 
 
     <div id="Notice" class="w3-container w3-border tab" style="display:none">
-        <h2>London</h2>
-        <p>London is the capital tab of England.</p>
+    <?php if(getRStatus($fid,$id)==1) include('course-notice.php');  ?></div>
     </div>
     </div>
 
