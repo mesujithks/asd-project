@@ -299,6 +299,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "student":	include("student.php"); break;
 				case "view-student":	include("view-student.php"); break;
 				case "add-notice":	include("add-notice.php"); break;
+				case "exam-question":	include("exam-question.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  }

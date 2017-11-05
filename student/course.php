@@ -41,9 +41,9 @@
                 <li class="breadcrumb-item"><a href="index.php">Home</a> <i class="fa fa-angle-right"></i> Course</li>
             </ol>
 <!--four-grids here-->
-<div class="w3-card-" style="width:100%">
+<div class="w3-card-2" style="width:100%">
 
-<div class="w3-card-4  validation-system validation-form">
+<div class="w3-card-2  validation-system validation-form">
 <header class="w3-container w3-light-grey">
   <h3>All Available Courses</h3>
 </header>

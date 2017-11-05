@@ -122,8 +122,7 @@
       </div>
 <div>
       <div id="Exam" class="w3-container w3-border tab" style="display:none">
-        <h2>Tokyo</h2>
-        <p>Tokyo is the capital of Japan.</p>
+      <?php if(getRStatus($fid,$id)==1) include('course-exam.php');  ?></div>
       </div>
 
 

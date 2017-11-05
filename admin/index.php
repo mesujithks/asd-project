@@ -277,6 +277,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "course-add":	include("course-add.php"); break;
 				case "course-view":	include("course-view.php"); break;
 				case "faculty":	include("faculty.php"); break;
+				case "discussion":	include("discussion-forum.php"); break;
+				case "forum":	include("forum.php"); break;
 				case "profile-edit":	include("profile-edit.php"); break;
 				case "faculty-request":	include("faculty-request.php"); break;
 				case "faculty-course":	include("faculty-course.php"); break;
@@ -285,26 +287,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "view-faculty":	include("view-faculty.php"); break;
 				default : include("errorpage.php"); break;
 			}
-		  	/*if($page=="update_password")
-			{
-				include('update_password.php');
-			
-			}
-			if($page=="notification")
-			{
-				include('notification.php');
-			
-			}
-			if($page=="update_profile")
-			{
-				include('update_profile.php');
-			
-			}
-			if($page=="update_profile_pic")
-			{
-				include('update_profile_pic.php');
-			
-			}*/
+		  
 		  }
 		  else
 		  {
@@ -365,7 +348,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										 <li><a href="index.php?page=student"><i class="fa fa-user" aria-hidden="true"></i><span title="Students">Students</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=course"><i class="fa fa-folder-open" aria-hidden="true"></i><span title="Courses">Courses</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=exam"><i class="fa fa-calendar" aria-hidden="true"></i><span title="Exams">Exams</span><div class="clearfix"></div></a></li>
-										 <li><a href="index.php?page=disscussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=discussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=chat"><i class="fa fa-comment" aria-hidden="true"></i><span title="Chats">Chats</span><div class="clearfix"></div></a></li>
 									
 						

@@ -299,6 +299,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "my-course":	include("my-course.php"); break;
 				case "profile-edit":	include("profile-edit.php"); break;
 				case "verify":	include("verify.php"); break;
+				case "exam":	include("exam.php"); break;
+				case "discussion":	include("discussion-forum.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  }
@@ -359,7 +361,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										 <li><a href="index.php?page=faculty"><i class="fa fa-user" aria-hidden="true"></i><span title="Faculties">Faculties</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=course"><i class="fa fa-folder-open" aria-hidden="true"></i><span title="All Courses">All Courses</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=exam"><i class="fa fa-calendar" aria-hidden="true"></i><span title="Exams">Exams</span><div class="clearfix"></div></a></li>
-										 <li><a href="index.php?page=disscussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=discussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=chat"><i class="fa fa-comment" aria-hidden="true"></i><span title="Chats">Chats</span><div class="clearfix"></div></a></li>
 									
 						

@@ -84,13 +84,13 @@
 				</div> 
 				<div class="w3-third">
 					<div class="w3-card-4 four" style="width:92%;max-width:500px;">
-                        <a href="index.php?page=disscussion">
+                        <a href="index.php?page=discussion">
 						<div class="four-agileinfo w3-pink">
 							<div class="icon">
 								<i class="glyphicon glyphicon-bullhorn" aria-hidden="true"></i>
 							</div>
 							<div class="four-text">
-								<h3>Disscussion Forum</h3>
+								<h3>Discussion Forum</h3>
 								<h4><?php echo $dfcnt; ?></h4>
 
 							</div>
