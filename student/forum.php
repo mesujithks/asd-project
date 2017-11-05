@@ -2,7 +2,8 @@
 require('../connection.php');
 $card="";
 $sstatus="w3-hide";
-$query="SELECT * FROM `courses`,discussion_subtopic WHERE discussion_subtopic.topic_id=courses.courseId GROUP BY courses.courseName";
+$sid=$_SESSION['user_id'];
+$query="SELECT * FROM `courses`,discussion_subtopic WHERE discussion_subtopic.topic_id=courses.courseId AND courses.courseId IN (SELECT crsId FROM student_courses_taken WHERE stdId=$sid) GROUP BY courses.courseName";
 $result = mysqli_query($con,$query) or die(mysqli_error());
 while($row=$result->fetch_assoc()){
     $card.='
@@ -22,7 +23,7 @@ while($row=$result->fetch_assoc()){
 
         $card.='<div class="w3-col w3-cell w3-mobile" style="width:85%;overflow: auto;">
             <div class="w3-panel w3-border-bottom w3-border-red">
-                <a href="index.php?page=discussion-questions&id='.$r2['subtopic_id'].'"><strong>'.$r2['subtopic_name'].'</strong></a>
+                <a href="index.php?page=discussion-questions&id='.$r2['subtopic_id'].'&tname='.$row['courseName'].'&sbname='.$r2['subtopic_name'].'"><strong>'.$r2['subtopic_name'].'</strong></a>
                 <p>'.$r2['subtopic_description'].'</p>
             </div>';
     }       

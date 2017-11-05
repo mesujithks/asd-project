@@ -1,8 +1,8 @@
 <?php
 require('../connection.php');
 $card="";
-$sid=$_SESSION['user_id'];
-$query="SELECT * FROM discussion_question,users,discussion_subtopic WHERE discussion_question.user_id=users.id AND discussion_subtopic.topic_id IN (SELECT crsId FROM student_courses_taken WHERE stdId=$sid) GROUP BY discussion_question.subtopic_id ORDER BY  datetime desc";
+$fid=$_SESSION['user_id'];
+$query="SELECT * FROM discussion_question,users,discussion_subtopic WHERE discussion_question.user_id=users.id AND discussion_subtopic.topic_id IN (SELECT courseId FROM faculty_courses_taken WHERE facultyId=$fid AND status='approved') GROUP BY discussion_question.subtopic_id ORDER BY  datetime desc";
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
     $card.='<a href="index.php?page=question-view&qid='.$row['question_id'].'&sbtid='.$row['subtopic_id'].'&sbname='.$row['subtopic_name'].'">
@@ -34,13 +34,11 @@ while($row=$result->fetch_assoc()){
 
     <div class="validation-form">
         <div class="w3-row">
-            <div class="w3-third w3-border w3-padding">
+            <div class="w3-half w3-border w3-padding">
                 <a class="w3-blue w3-hover-red w3-button w3-ripple w3-round w3-show" href="index.php?page=forum">View Forum</a>
             </div>
-            <div class="w3-third w3-border w3-padding">
-                <a class="w3-blue w3-hover-red w3-button w3-ripple w3-round w3-show" href="index.php?page=my-questions">My Questions</a>
-            </div>
-            <div class="w3-third w3-border w3-padding">
+            
+            <div class="w3-half w3-border w3-padding">
                 <a class="w3-blue w3-hover-red w3-button w3-ripple w3-round w3-show" href="index.php?page=my-answers">My Answers</a>
             </div>
         </div><br>

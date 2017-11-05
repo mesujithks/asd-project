@@ -1,28 +1,23 @@
 <?php
 require('../connection.php');
-$clist="";
 $sstatus="w3-hide";
-$query="SELECT * FROM `courses`";
-$result = mysqli_query($con,$query) or die(mysqli_error());
-while($row=$result->fetch_assoc()){
-    $clist.='<option value="'.$row['courseId'].'">'.$row['courseName'].'</option>';
-}
+extract($_GET);
 
 extract($_POST);
 
 if (isset($add)){
-    $query="INSERT INTO `discussion_subtopic` (`subtopic_name`, `subtopic_description`,  `topic_id`) VALUES ('$stname', '$stdesc', '$course')";
+    $query="INSERT INTO discussion_question ( `heading`,`question_detail`, `user_id`, `subtopic_id`) VALUES ( '$hd','$ta', '$uid', '$stid')";
     $result = mysqli_query($con,$query);
     if($result){
         $sstatus="w3-show";
-        $smsg="New Subtopic is added.";
+        $smsg="New Question is added.";
     }
 }
-
-$query="SELECT * FROM discussion_question,users,discussion_subtopic WHERE discussion_question.user_id=users.id  GROUP BY discussion_question.subtopic_id ORDER BY  datetime desc";
+$card="";
+$query="SELECT * FROM discussion_question, users WHERE discussion_question.user_id=users.id and subtopic_id=$id ORDER BY  datetime desc";
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
-    $card.='<a href="index.php?page=question-view&qid='.$row['question_id'].'&sbtid='.$row['subtopic_id'].'&sbname='.$row['subtopic_name'].'">
+    $card.='<a href="index.php?page=question-view&qid='.$row['question_id'].'&sbtid='.$id.'&tname='.$tname.'&sbname='.$sbname.'">
     <div class="w3-card-2" style="width:100%;margin-top:12px;">
         <header class="w3-container w3-teal">
             <h4>'.$row['heading'].'</h4>
@@ -46,7 +41,7 @@ while($row=$result->fetch_assoc()){
 
 ?>
 <ol class="breadcrumb w3-card-2">
-<li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Discussion Forum</li>
+<li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i><a href="index.php?page=discussion">Discussion Forum</a><i class="fa fa-angle-right"></i><a href="index.php?page=forum">View Forum</a><i class="fa fa-angle-right"></i><?php echo $tname." : ".$sbname; ?></li>
 </ol>
 
 <div class="w3-panel w3-green w3-round <?php echo $sstatus; ?>">
@@ -59,25 +54,20 @@ while($row=$result->fetch_assoc()){
     <div class="validation-form">
     <div class="w3-card-4" style="width:100%">
 <header class="w3-container w3-light-grey">
-    <h3>Add New Subtopic</h3>
+    <h3>Ask New Question</h3>
 </header>
 <div class="w3-container"><br>
 <form action="<?php print $PHP_SELF?>" method="post">
     <div class="w3-row">
+        <input type="hidden" name="stid" value="<?php echo $id; ?>">
+        <input type="hidden" name="uid" value="<?php echo $_SESSION['user_id']; ?>">
     <div class="w3-third w3-container form-group1">
-        <label class="control-label">Course Name</label>
-        <select class="w3-input w3-border w3-margin-top w3-select w3-round" name="course">
-            <option value="" selected disable>Select Course Name</option>
-            <?php echo $clist; ?>
-        </select>
-    </div>
-    <div class="w3-third w3-container form-group1">
-        <label class="control-label">Subtopic Name</label>
-        <input type="text" placeholder="Enter Name Of The Exam" name="stname" required="" >
+        <label class="control-label">Heading</label>
+        <input type="text" placeholder="Enter Title Of The Question" name="hd" required="" >
     </div>
     <div class="w3-third w3-container form-group1">
         <label class="control-label">Description</label>
-        <input type="text" placeholder="Enter Total Number Of Questions" name="stdesc" required="" >
+        <input type="text" placeholder="Enter Detailed Description Of The Question" name="ta" required="" >
     </div>
     </div>
    <div class="col-md-4 form-group w3-center"><br>
@@ -86,16 +76,7 @@ while($row=$result->fetch_assoc()){
 </form>
 </div>
 </div><br>
-        <div class="w3-row">
-            <div class="w3-third  w3-padding">
-            </div>
-            <div class="w3-third w3-border w3-padding">
-                <a class="w3-blue w3-hover-red w3-button w3-ripple w3-round w3-show" href="index.php?page=forum">View Forum</a>
-            </div>
-            <div class="w3-third  w3-padding">
-            </div>
-        </div><br>
-        <header class="w3-container w3-light-grey">
+<header class="w3-container w3-light-grey">
             <h3>Recently Asked Questions</h3>
         </header>
         <div class="w3-container">

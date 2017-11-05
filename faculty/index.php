@@ -300,6 +300,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "view-student":	include("view-student.php"); break;
 				case "add-notice":	include("add-notice.php"); break;
 				case "exam-question":	include("exam-question.php"); break;
+				case "discussion":	include("discussion-forum.php"); break;
+				case "discussion-questions":	include("discussion-questions.php"); break;
+				case "question-view":	include("question-view.php"); break;
+				case "forum":	include("forum.php"); break;
+				case "my-questions":	include("my-questions.php"); break;
+				case "my-answers":	include("my-answers.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  }
@@ -358,11 +364,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										 <li id="menu-academico" ><a href="index.php?page=inbox"><i class="fa fa-envelope nav_icon"></i><span title="Inbox">Inbox</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=notification"><i class="fa fa-bell" aria-hidden="true"></i><span title="Notifications">Notifications</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=notice"><i class="fa fa-file-text" aria-hidden="true"></i><span title="Notice">Notice</span><div class="clearfix"></div></a></li>
-										 <li><a href="index.php?page=my-courses"><i class="fa fa-list" aria-hidden="true"></i><span title="My Courses">My Courses</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=my-course"><i class="fa fa-list" aria-hidden="true"></i><span title="My Courses">My Courses</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=student"><i class="fa fa-user" aria-hidden="true"></i><span title="Students">Students</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=course"><i class="fa fa-folder-open" aria-hidden="true"></i><span title="All Courses">All Courses</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=exam"><i class="fa fa-calendar" aria-hidden="true"></i><span title="Exams">Exams</span><div class="clearfix"></div></a></li>
-										 <li><a href="index.php?page=disscussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
+										 <li><a href="index.php?page=discussion"><i class="fa fa-bullhorn" aria-hidden="true"></i><span title="Disscussion">Disscussion Forum</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=chat"><i class="fa fa-comment" aria-hidden="true"></i><span title="Chats">Chats</span><div class="clearfix"></div></a></li>
 									
 						

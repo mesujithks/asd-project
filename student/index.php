@@ -49,6 +49,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         return $row["image"];
 	}
 
+	function getCover($id){
+		require('../connection.php');
+		$query="SELECT * FROM `courses` WHERE courseId=$id";
+		$result = mysqli_query($con,$query) or die(mysqli_error());
+		if($result){
+			$row=$result->fetch_assoc();
+			return $row["courseImage"];
+		}
+        return "../images/default-c.jpg";
+	}
+
 	
 ?>
 <!DOCTYPE HTML>
@@ -297,10 +308,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "faculty":	include("faculty.php"); break;
 				case "faculty-request":	include("faculty-request.php"); break;
 				case "my-course":	include("my-course.php"); break;
+				case "my-questions":	include("my-questions.php"); break;
+				case "my-answers":	include("my-answers.php"); break;
 				case "profile-edit":	include("profile-edit.php"); break;
 				case "verify":	include("verify.php"); break;
 				case "exam":	include("exam.php"); break;
 				case "discussion":	include("discussion-forum.php"); break;
+				case "discussion-questions":	include("discussion-questions.php"); break;
+				case "question-view":	include("question-view.php"); break;
+				case "forum":	include("forum.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  }

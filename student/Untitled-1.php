@@ -1,7 +1,7 @@
 <?php
 require('connection.php');
 
-<?php
+
 require('connection.php');
 
 $query="select * from exam_question";

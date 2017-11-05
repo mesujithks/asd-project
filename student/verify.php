@@ -35,7 +35,7 @@
 ?>
 
 <ol class="breadcrumb w3-card-2">
-                <li class="breadcrumb-item"><a href="index.html">Home</a><i class="fa fa-angle-right"></i>Verify</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Verify</li>
             </ol>
 <!--grid-->
 <div class="w3-panel w3-green w3-round <?php echo $sstatus; ?>">
