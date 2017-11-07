@@ -11,9 +11,27 @@
   $msg=$head="";
   $dir="Course";
   $path="course";
+  $sd="";
   $fid=$_SESSION['user_id'];
 
   extract($_GET);
+
+  $slist='<li class="w3-padding">No Students Registerd</li>';
+  $sql  = "SELECT studentId,name FROM students JOIN student_courses_taken ON student_courses_taken.stdId=students.studentId JOIN users ON users.id=student_courses_taken.stdId WHERE student_courses_taken.crsId='$id'";
+  $result = mysqli_query($con,$sql) or die(mysqli_error());
+  if(mysqli_num_rows($result)>0) $slist='<li class="w3-padding w3-light-green">Total Number Of Students : '.mysqli_num_rows($result).'</li>';
+  while($row=$result->fetch_assoc()){
+      $slist.='<a href="index.php?page=view-student&id='.$row['studentId'].'"><li class="w3-padding w3-text-black">'.$row['name'].'</li></a>';
+  }
+
+  $flist='<li class="w3-padding">No Students Registerd</li>';
+  $sql  = "SELECT faculty.facultyId,name FROM faculty JOIN faculty_courses_taken ON faculty_courses_taken.facultyId=faculty.facultyId JOIN users ON users.id=faculty_courses_taken.facultyId WHERE faculty_courses_taken.courseId='$id'";
+  $result = mysqli_query($con,$sql) or die(mysqli_error());
+  if(mysqli_num_rows($result)>0) $flist='<li class="w3-padding w3-light-green">Total Number Of Faculties : '.mysqli_num_rows($result).'</li>';
+  while($row=$result->fetch_assoc()){
+      $flist.='<a href="index.php?page=view-faculty&id='.$row['facultyId'].'"><li class="w3-padding w3-text-black">'.$row['name'].'</li></a>';
+  }
+
 
   $query="SELECT * FROM courses WHERE courseId=$id";
   $result = mysqli_query($con,$query) or die(mysqli_error());
@@ -41,6 +59,7 @@
     $disp="w3-show";
     $dir="My Course";
     $path="my-course";
+    $sd="w3-hide";
   }
 
   if($action=="register"){
@@ -114,7 +133,27 @@
         <img class="w3-image w3-round" src="<?php echo $cimg; ?>" style="width:50%"></img>
         <a class="w3-button w3-green w3-hover-red w3-round w3-card-2 <?php echo $rbtn; ?>" style="margin-left:48px;margin-top:16px;" href="index.php?page=course-view&id=<?php echo $id; ?>&action=register">REGISTER</a>
         <p style="margin-top:16px"><strong>Description : </strong><?php echo $csd; ?></p>
-        <p><?php echo $cld; ?></p>
+        <p><?php echo $cld; ?></p><br>
+        
+        <div class="<?php echo $sd; ?>">
+        <header class="w3-container w3-light-grey">
+<h3>Registerd Faculties</h3>
+</header>
+<div class="w3-container">
+<ul class="w3-ul w3-hoverable">
+            <?php echo $flist; ?>
+        </ul>
+</div><br>
+<header class="w3-container w3-light-grey">
+<h3>Registerd Students</h3>
+</header>
+<div class="w3-container">
+<ul class="w3-ul w3-hoverable">
+            <?php echo $slist; ?>
+        </ul>
+</div>
+</div>
+<br>
       </div>
 
       <div id="Contents" class="w3-container w3-border tab" style="display:none">

@@ -1,19 +1,19 @@
 <?php
-    extract($_GET);
+    $id=$_SESSION[user_id];
     $list='<li class="w3-padding">No Courses Registerd</li>';
-    $sql  = "SELECT courses.courseId,courseName FROM faculty JOIN faculty_courses_taken ON faculty_courses_taken.facultyId=faculty.facultyId JOIN courses ON courses.courseId=faculty_courses_taken.courseId WHERE faculty.facultyId='$id'";
+    $sql  = "SELECT courseId,courseName FROM students JOIN student_courses_taken ON student_courses_taken.stdId=students.studentId JOIN courses ON courses.courseId=student_courses_taken.crsId WHERE students.studentId='$id'";
     $result = mysqli_query($con,$sql) or die(mysqli_error());
     if(mysqli_num_rows($result)>0) $list="";
     while($row=$result->fetch_assoc()){
         $list.='<a href="index.php?page=course-view&id='.$row['courseId'].'"><li class="w3-padding w3-text-black">'.$row['courseName'].'</li></a>';
     }
-    $sql  = "SELECT * FROM users JOIN faculty ON faculty.facultyId=users.id WHERE faculty.facultyId='$id'";
+    $sql  = "SELECT * FROM users JOIN students ON students.studentId=users.id WHERE students.studentId='$id'";
     $result = mysqli_query($con,$sql) or die(mysqli_error());
     $row=$result->fetch_assoc();
 
 ?>
 <ol class="breadcrumb w3-card-2">
-                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i><a href="index.php?page=faculty">Faculty</a><i class="fa fa-angle-right"></i>View</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Profile View</li>
             </ol>
 <!--grid-->
 
@@ -24,8 +24,7 @@
   	    <div class="w3-container w3-border w3-center"><br>
           <img class="prfil-pic w3-card-2 w3-margin-bottom" width=150 height=150 src="<?php echo $row['image']; ?>"></img>
           <h2><?php echo $row['name']; ?></h2>
-          <a class="w3-button w3-blue w3-hover-red w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=message&id=<?php echo $row[id]; ?>">MESSAGE</a>
-        <div>
+                  <div>
         <div class="w3-row-padding">
             <div class="w3-half">
                 <label>Full Name</label>
@@ -53,19 +52,19 @@
                 <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="fullname" value="<?php echo $row['dob']; ?>" disabled>
             </div>
             <div class="w3-half">
-                <label><b>Employee ID</b></label>
-                <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="mobile" value="<?php echo $row['empId']; ?>" disabled>
+                <label><b>Admission No</b></label>
+                <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="mobile" value="<?php echo $row['admno']; ?>" disabled>
             </div>
         </div>
 
         <div class="w3-row-padding">
             <div class="w3-half">
                 <label><b>Department</b></label>
-                <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="fullname" value="<?php echo $row['department']; ?>" disabled>   
+                <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="fullname" value="<?php echo $row['dept']; ?>" disabled>   
             </div>
             <div class="w3-half">
                 <label><b>Address</b></label>
-                <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="fullname" value="<?php echo $row['address']; ?>" disabled>
+                <input class="w3-input w3-border w3-margin-bottom w3-round" type="text"  name="fullname" value="<?php echo $row['addrs']; ?>" disabled>
             </div>
         </div><br>
         <header class="w3-container w3-light-grey">

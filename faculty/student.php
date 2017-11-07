@@ -2,7 +2,7 @@
 
     $card='<div class="w3-row-padding">';
     $count=0;
-	$query="SELECT * FROM `students`,`users` WHERE `users`.id = `students`.studentId";
+	$query="SELECT * FROM `students`,`users`,student_courses_taken WHERE `users`.id = `students`.studentId and student_courses_taken.stdId=students.studentId and student_courses_taken.crsId IN (SELECT courseId FROM faculty_courses_taken WHERE facultyId=$_SESSION[user_id]) GROUP BY id";
 	$result = mysqli_query($con,$query) or die(mysqli_error());
     while($row=$result->fetch_assoc()){
         $count+=1;

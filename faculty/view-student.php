@@ -1,11 +1,11 @@
 <?php
     extract($_GET);
     $list='<li class="w3-padding">No Courses Registerd</li>';
-    $sql  = "SELECT courseName FROM students JOIN student_courses_taken ON student_courses_taken.stdId=students.studentId JOIN courses ON courses.courseId=student_courses_taken.crsId WHERE students.studentId='$id'";
+    $sql  = "SELECT courseId,courseName FROM students JOIN student_courses_taken ON student_courses_taken.stdId=students.studentId JOIN courses ON courses.courseId=student_courses_taken.crsId WHERE students.studentId='$id'";
     $result = mysqli_query($con,$sql) or die(mysqli_error());
     if(mysqli_num_rows($result)>0) $list="";
     while($row=$result->fetch_assoc()){
-        $list.='<li class="w3-padding">'.$row['courseName'].'</li>';
+        $list.='<a href="index.php?page=course-view&id='.$row['courseId'].'"><li class="w3-padding w3-text-black">'.$row['courseName'].'</li></a>';
     }
     $sql  = "SELECT * FROM users JOIN students ON students.studentId=users.id WHERE students.studentId='$id'";
     $result = mysqli_query($con,$sql) or die(mysqli_error());
@@ -24,6 +24,7 @@
   	    <div class="w3-container w3-border w3-center"><br>
           <img class="prfil-pic w3-card-2 w3-margin-bottom" width=150 height=150 src="<?php echo $row['image']; ?>"></img>
           <h2><?php echo $row['name']; ?></h2>
+          <a class="w3-button w3-blue w3-hover-red w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=message&id=<?php echo $row[id]; ?>">MESSAGE</a>
         <div>
         <div class="w3-row-padding">
             <div class="w3-half">

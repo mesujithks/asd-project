@@ -1,5 +1,5 @@
 <?php
-    extract($_GET);
+    $id=$_SESSION[user_id];
     $list='<li class="w3-padding">No Courses Registerd</li>';
     $sql  = "SELECT courses.courseId,courseName FROM faculty JOIN faculty_courses_taken ON faculty_courses_taken.facultyId=faculty.facultyId JOIN courses ON courses.courseId=faculty_courses_taken.courseId WHERE faculty.facultyId='$id'";
     $result = mysqli_query($con,$sql) or die(mysqli_error());
@@ -13,7 +13,7 @@
 
 ?>
 <ol class="breadcrumb w3-card-2">
-                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i><a href="index.php?page=faculty">Faculty</a><i class="fa fa-angle-right"></i>View</li>
+                <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Profile View</li>
             </ol>
 <!--grid-->
 
@@ -24,8 +24,7 @@
   	    <div class="w3-container w3-border w3-center"><br>
           <img class="prfil-pic w3-card-2 w3-margin-bottom" width=150 height=150 src="<?php echo $row['image']; ?>"></img>
           <h2><?php echo $row['name']; ?></h2>
-          <a class="w3-button w3-blue w3-hover-red w3-round w3-card-2" style="margin-left:12px;margin-top:12px;margin-bottom:12px" href="index.php?page=message&id=<?php echo $row[id]; ?>">MESSAGE</a>
-        <div>
+                  <div>
         <div class="w3-row-padding">
             <div class="w3-half">
                 <label>Full Name</label>

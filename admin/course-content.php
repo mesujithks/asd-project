@@ -39,7 +39,6 @@ $card.='</div>
         <br />';
 }
 
-
 ?>
 
 <br />
@@ -49,4 +48,5 @@ $card.='</div>
 <div class="w3-container">
     <?php echo $card; ?>
 </div>
+
 

@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 23, 2017 at 07:09 PM
--- Server version: 10.1.24-MariaDB-6
+-- Generation Time: Nov 07, 2017 at 08:11 PM
+-- Server version: 10.1.26-MariaDB-1
 -- PHP Version: 7.0.22-3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -67,6 +67,7 @@ CREATE TABLE `course_content` (
   `courseId` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `body` varchar(1000) NOT NULL,
+  `attachment` varchar(100) NOT NULL,
   `post_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `post_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -75,9 +76,10 @@ CREATE TABLE `course_content` (
 -- Dumping data for table `course_content`
 --
 
-INSERT INTO `course_content` (`conentId`, `courseId`, `title`, `body`, `post_date`, `post_by`) VALUES
-(1, 1, 'tset', 'ssjhfsjdf', '2017-10-21 15:12:22', 4),
-(2, 1, 'test title', 'sdsg', '2017-10-21 15:41:37', 4);
+INSERT INTO `course_content` (`conentId`, `courseId`, `title`, `body`, `attachment`, `post_date`, `post_by`) VALUES
+(1, 1, 'tset update ffile', 'ssjhfsjdf new', '../files/attachment-1509044754.pdf', '2017-10-21 15:12:22', 4),
+(2, 1, 'test title', 'sdsg new uload', '../files/attachment-1509045796.pdf', '2017-10-21 15:41:37', 4),
+(8, 2, 'uoload test', 'test', '../files/attachment-1509044831.pdf', '2017-10-25 21:14:57', 4);
 
 -- --------------------------------------------------------
 
@@ -95,6 +97,16 @@ CREATE TABLE `discussion_answer` (
   `like` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `discussion_answer`
+--
+
+INSERT INTO `discussion_answer` (`answer_id`, `replied`, `question_id`, `answer_detail`, `datetime`, `user_id`, `like`) VALUES
+(8, 0, 1, 'my reply', '2017-11-05 11:12:00', 6, 0),
+(9, 0, 2, 'test reply', '2017-11-05 15:50:59', 4, 0),
+(10, 0, 1, 'reply by faculty', '2017-11-05 15:51:32', 4, 0),
+(11, 0, 1, 'repy frm suryajith', '2017-11-06 03:58:44', 7, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -106,8 +118,24 @@ CREATE TABLE `discussion_chat` (
   `cdatetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `message` varchar(1000) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `chat_id` int(11) NOT NULL
+  `chat_id` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'unread'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `discussion_chat`
+--
+
+INSERT INTO `discussion_chat` (`chatdetail_id`, `cdatetime`, `message`, `user_id`, `chat_id`, `status`) VALUES
+(1, '2017-11-06 13:43:45', 'hi', 7, 1, 'unread'),
+(2, '2017-11-06 13:45:10', 'test msg', 7, 2, 'unread'),
+(3, '2017-11-06 15:38:00', 'hello', 6, 3, 'unread'),
+(6, '2017-11-06 16:26:04', 'reply msg', 6, 2, 'unread'),
+(7, '2017-11-06 23:55:28', 'hi there', 4, 3, 'unread'),
+(8, '2017-11-07 00:15:34', 'contact me immediately', 1, 4, 'unread'),
+(9, '2017-11-07 00:41:13', 'OK sir', 4, 4, 'unread'),
+(10, '2017-11-07 01:57:47', 'welome', 4, 5, 'unread'),
+(11, '2017-11-07 01:59:20', 'msg frm admin', 1, 6, 'unread');
 
 -- --------------------------------------------------------
 
@@ -120,6 +148,18 @@ CREATE TABLE `discussion_chatmaster` (
   `user_id_from` int(11) NOT NULL,
   `user_id_to` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `discussion_chatmaster`
+--
+
+INSERT INTO `discussion_chatmaster` (`chat_id`, `user_id_from`, `user_id_to`) VALUES
+(1, 7, 2),
+(2, 7, 6),
+(3, 6, 4),
+(4, 1, 4),
+(5, 4, 7),
+(6, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -137,6 +177,14 @@ CREATE TABLE `discussion_question` (
   `views` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `discussion_question`
+--
+
+INSERT INTO `discussion_question` (`question_id`, `heading`, `question_detail`, `datetime`, `user_id`, `subtopic_id`, `views`) VALUES
+(1, 'What is this?', 'help me', '2017-11-05 08:50:40', 6, 2, 0),
+(2, 'test', 'question', '2017-11-05 10:15:03', 6, 3, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -147,9 +195,19 @@ CREATE TABLE `discussion_subtopic` (
   `subtopic_id` int(11) NOT NULL,
   `subtopic_name` varchar(50) NOT NULL,
   `subtopic_description` varchar(500) NOT NULL,
-  `s_status` varchar(20) NOT NULL,
+  `s_status` varchar(20) NOT NULL DEFAULT 'true',
   `topic_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `discussion_subtopic`
+--
+
+INSERT INTO `discussion_subtopic` (`subtopic_id`, `subtopic_name`, `subtopic_description`, `s_status`, `topic_id`) VALUES
+(2, 'General', 'general python discussion', 'true', 1),
+(3, 'PHP Security', 'Security in PHP Web Applications', 'true', 2),
+(4, 'Test Topic', 'no needed', 'true', 4),
+(5, 'Web Development', 'Python In Web Development', 'true', 1);
 
 -- --------------------------------------------------------
 
@@ -176,6 +234,14 @@ CREATE TABLE `exam` (
   `total_que` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`test_id`, `sub_id`, `test_name`, `total_que`) VALUES
+(2, 1, 'test', '5'),
+(3, 4, 'new exam', '1');
+
 -- --------------------------------------------------------
 
 --
@@ -193,6 +259,18 @@ CREATE TABLE `exam_question` (
   `true_ans` int(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `exam_question`
+--
+
+INSERT INTO `exam_question` (`que_id`, `test_id`, `que_desc`, `ans1`, `ans2`, `ans3`, `ans4`, `true_ans`) VALUES
+(1, 2, 'que1', 'a', 'b', 'c', 'd', 1),
+(2, 2, 'que2', 'e', 'f', 'g', 'h', 2),
+(3, 2, 'que3', 'i', 'j', 'k', 'l', 3),
+(4, 2, 'que4', 'm', 'n', 'o', 'p', 4),
+(5, 2, 'que5 new', 'q', 'r', 's', 't', 2),
+(6, 3, 'my qus', 'ans1', 'ans2', 'ans3', 'ans4', 3);
+
 -- --------------------------------------------------------
 
 --
@@ -200,11 +278,20 @@ CREATE TABLE `exam_question` (
 --
 
 CREATE TABLE `exam_result` (
-  `login` varchar(20) DEFAULT NULL,
+  `sid` int(11) NOT NULL,
   `test_id` int(5) DEFAULT NULL,
-  `test_date` date DEFAULT NULL,
+  `test_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `score` int(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam_result`
+--
+
+INSERT INTO `exam_result` (`sid`, `test_id`, `test_date`, `score`) VALUES
+(6, 2, '2017-11-04 19:47:06', 5),
+(7, 2, '2017-11-06 09:27:22', 4),
+(7, 2, '2017-11-06 15:34:31', 2);
 
 -- --------------------------------------------------------
 
@@ -223,6 +310,22 @@ CREATE TABLE `exam_useranswer` (
   `true_ans` int(11) DEFAULT NULL,
   `your_ans` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `exam_useranswer`
+--
+
+INSERT INTO `exam_useranswer` (`sess_id`, `test_id`, `que_des`, `ans1`, `ans2`, `ans3`, `ans4`, `true_ans`, `your_ans`) VALUES
+('6otaifpb6a8qacpu0dmvtgese2', 2, 'que1', 'a', 'b', 'c', 'd', 1, 1),
+('6otaifpb6a8qacpu0dmvtgese2', 2, 'que2', 'e', 'f', 'g', 'h', 2, 2),
+('6otaifpb6a8qacpu0dmvtgese2', 2, 'que3', 'i', 'j', 'k', 'l', 3, 3),
+('6otaifpb6a8qacpu0dmvtgese2', 2, 'que4', 'm', 'n', 'o', 'p', 4, 4),
+('6otaifpb6a8qacpu0dmvtgese2', 2, 'que5 new', 'q', 'r', 's', 't', 2, 4),
+('ov2l6b16pkv88930jnuff0e7t2', 2, 'que1', 'a', 'b', 'c', 'd', 1, 2),
+('ov2l6b16pkv88930jnuff0e7t2', 2, 'que2', 'e', 'f', 'g', 'h', 2, 3),
+('ov2l6b16pkv88930jnuff0e7t2', 2, 'que3', 'i', 'j', 'k', 'l', 3, 3),
+('ov2l6b16pkv88930jnuff0e7t2', 2, 'que4', 'm', 'n', 'o', 'p', 4, 4),
+('ov2l6b16pkv88930jnuff0e7t2', 2, 'que5 new', 'q', 'r', 's', 't', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -280,10 +383,19 @@ INSERT INTO `faculty_courses_taken` (`facultyId`, `courseId`, `status`) VALUES
 CREATE TABLE `notice` (
   `notice_id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
+  `course` int(11) NOT NULL,
   `subject` varchar(100) NOT NULL,
   `Description` text NOT NULL,
-  `Date` datetime NOT NULL
+  `Date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `notice`
+--
+
+INSERT INTO `notice` (`notice_id`, `user`, `course`, `subject`, `Description`, `Date`) VALUES
+(1, 4, 1, 'notice title', 'test notice updated', '2017-10-29 21:06:22'),
+(2, 1, 0, 'general notice', 'test', '2017-11-07 11:48:11');
 
 -- --------------------------------------------------------
 
@@ -338,8 +450,8 @@ CREATE TABLE `students` (
 
 INSERT INTO `students` (`studentId`, `admno`, `dept`, `addrs`, `status`) VALUES
 (2, 0, '', '', 'incomplete'),
-(3, 0, '', '', 'incomplete'),
-(6, 1234, 'CSE', 'test address', 'complete');
+(6, 1234, 'CSE', 'test address', 'complete'),
+(7, 5445, 'CSE', 'pooja enclave', 'complete');
 
 -- --------------------------------------------------------
 
@@ -359,7 +471,8 @@ CREATE TABLE `student_courses_taken` (
 INSERT INTO `student_courses_taken` (`stdId`, `crsId`) VALUES
 (6, 1),
 (6, 2),
-(6, 3);
+(6, 3),
+(7, 1);
 
 -- --------------------------------------------------------
 
@@ -385,12 +498,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `pass`, `type`, `mobile`, `gender`, `image`, `dob`, `join_date`) VALUES
-(1, 'Administrator', 'admin@host.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 1234567890, 'M', '../images/avatar-1.jpg', '2017-12-05', '2017-10-01 10:33:43'),
+(1, 'Stite Admin', 'admin@host.com', '21232f297a57a5a743894a0e4a801fc3', 'admin', 1234567890, 'M', '../images/avatar-1.jpg', '2017-12-05', '2017-10-01 10:33:43'),
 (2, 'sujith', 'mesujithks3@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'student', 9656008103, 'M', '../images/avatar.png', '1997-12-05', '2017-10-01 11:12:50'),
-(3, 'test', 'test@host.com', 'cc03e747a6afbbcbf8be7668acfebee5', 'student', 1234567890, 'M', '../images/avatar.png', '1991-01-01', '2017-10-01 11:26:52'),
 (4, 'Sujith K S', 'faculty@host.com', '21232f297a57a5a743894a0e4a801fc3', 'faculty', 1234557891, 'M', '../images/avatar-4.jpg', '2017-10-03', '2017-10-01 15:50:28'),
 (5, 'Ajaydev', 'ajay@host.com', '21232f297a57a5a743894a0e4a801fc3', 'faculty', 9037861390, 'M', '../images/avatar-5.jpg', '1997-04-22', '2017-10-04 04:12:41'),
-(6, 'Sujith K S', 'student@host.com', '21232f297a57a5a743894a0e4a801fc3', 'student', 1234557891, 'M', '../images/avatar-6.jpg', '2017-10-03', '2017-10-19 19:21:12');
+(6, 'Sujith K S', 'student@host.com', '21232f297a57a5a743894a0e4a801fc3', 'student', 1234557891, 'M', '../images/avatar-6.jpg', '2017-10-03', '2017-10-19 19:21:12'),
+(7, 'suryajith', 'suryajith082@gmail.com', 'c680bc05d42ebf43a70cbfcd2096f313', 'student', 9544329179, 'M', '../images/avatar.png', '1997-09-05', '2017-11-06 09:24:15');
 
 --
 -- Indexes for dumped tables
@@ -479,7 +592,8 @@ ALTER TABLE `exam_question`
 -- Indexes for table `exam_result`
 --
 ALTER TABLE `exam_result`
-  ADD KEY `test_id` (`test_id`);
+  ADD KEY `test_id` (`test_id`),
+  ADD KEY `sid` (`sid`);
 
 --
 -- Indexes for table `exam_useranswer`
@@ -505,7 +619,8 @@ ALTER TABLE `faculty_courses_taken`
 --
 ALTER TABLE `notice`
   ADD PRIMARY KEY (`notice_id`),
-  ADD KEY `user` (`user`);
+  ADD KEY `user` (`user`),
+  ADD KEY `course` (`course`);
 
 --
 -- Indexes for table `notification`
@@ -552,32 +667,32 @@ ALTER TABLE `courses`
 -- AUTO_INCREMENT for table `course_content`
 --
 ALTER TABLE `course_content`
-  MODIFY `conentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `conentId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `discussion_answer`
 --
 ALTER TABLE `discussion_answer`
-  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `answer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `discussion_chat`
 --
 ALTER TABLE `discussion_chat`
-  MODIFY `chatdetail_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `chatdetail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `discussion_chatmaster`
 --
 ALTER TABLE `discussion_chatmaster`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `discussion_question`
 --
 ALTER TABLE `discussion_question`
-  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `question_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `discussion_subtopic`
 --
 ALTER TABLE `discussion_subtopic`
-  MODIFY `subtopic_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `subtopic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `discussion_topic`
 --
@@ -587,17 +702,17 @@ ALTER TABLE `discussion_topic`
 -- AUTO_INCREMENT for table `exam`
 --
 ALTER TABLE `exam`
-  MODIFY `test_id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `test_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `exam_question`
 --
 ALTER TABLE `exam_question`
-  MODIFY `que_id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `que_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `notice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `notification`
 --
@@ -607,7 +722,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
@@ -657,7 +772,7 @@ ALTER TABLE `discussion_question`
 -- Constraints for table `discussion_subtopic`
 --
 ALTER TABLE `discussion_subtopic`
-  ADD CONSTRAINT `discussion_subtopic_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `discussion_topic` (`topic_id`);
+  ADD CONSTRAINT `discussion_subtopic_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `courses` (`courseId`);
 
 --
 -- Constraints for table `exam`
@@ -675,7 +790,8 @@ ALTER TABLE `exam_question`
 -- Constraints for table `exam_result`
 --
 ALTER TABLE `exam_result`
-  ADD CONSTRAINT `exam_result_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `exam` (`test_id`);
+  ADD CONSTRAINT `exam_result_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `exam` (`test_id`),
+  ADD CONSTRAINT `exam_result_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `students` (`studentId`);
 
 --
 -- Constraints for table `exam_useranswer`

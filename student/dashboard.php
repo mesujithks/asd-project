@@ -68,7 +68,7 @@
 		<div class="w3-row"><br />
 				<div class="w3-third">
 					<div class="w3-card-4 four" style="width:92%;max-width:500px;">
-                        <a href="index.php?page=exam">
+                        <a href="index.php?page=exams">
 						<div class="four-agileits w3-brown">
 							<div class="icon">
 							<i class="glyphicon glyphicon-calendar" aria-hidden="true"></i>

@@ -22,10 +22,11 @@ while($row=$result->fetch_assoc()){
     while ($r2 = $result1->fetch_assoc()){
 
         $card.='<div class="w3-col w3-cell w3-mobile" style="width:85%;overflow: auto;">
-            <div class="w3-panel w3-border-bottom w3-border-red">
-                <a href="index.php?page=discussion-questions&id='.$r2['subtopic_id'].'&tname='.$row['courseName'].'&sbname='.$r2['subtopic_name'].'"><strong>'.$r2['subtopic_name'].'</strong></a>
+        <a href="index.php?page=discussion-questions&id='.$r2['subtopic_id'].'&tname='.$row['courseName'].'&sbname='.$r2['subtopic_name'].'">
+            <div class="w3-panel w3-border-bottom w3-border-red  w3-hover-gray">
+                <strong>'.$r2['subtopic_name'].'</strong>
                 <p>'.$r2['subtopic_description'].'</p>
-            </div>';
+            </div></a>';
     }       
                 $card.='</div>
             </div>

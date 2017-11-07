@@ -16,7 +16,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<p>You have been tricked into click on a link that can not be found. Please check the url or go to <a href="index.php"><strong>main page</strong></a> and see if you can locate what you are looking for</p>
 				</div>
 				<div class="image">
-					<img src="images/smile.png">
+					<img src="../images/smile.png">
 				</div>
 				<div class="clearfix"></div>
 			</div>

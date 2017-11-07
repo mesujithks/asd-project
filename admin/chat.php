@@ -2,11 +2,13 @@
 require('../connection.php');
 $card="";
 $uid=$_SESSION['user_id'];
-$query = "SELECT chat_id, user_id_from, user_id_to, name FROM discussion_chatmaster, users WHERE discussion_chatmaster.user_id_to=users.id AND discussion_chatmaster.user_id_from=$uid";
+$query = "SELECT discussion_chatmaster.chat_id, user_id_from, user_id_to, name, cdatetime FROM discussion_chatmaster, users,discussion_chat WHERE discussion_chatmaster.user_id_from=users.id AND discussion_chat.chat_id=discussion_chatmaster.chat_id AND discussion_chatmaster.user_id_to=$uid GROUP BY discussion_chatmaster.chat_id UNION SELECT discussion_chatmaster.chat_id, user_id_from, user_id_to, name, cdatetime FROM discussion_chatmaster, users,discussion_chat WHERE discussion_chatmaster.user_id_to=users.id AND discussion_chat.chat_id=discussion_chatmaster.chat_id AND discussion_chatmaster.user_id_from=$uid GROUP BY discussion_chatmaster.chat_id ORDER BY cdatetime DESC";
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
-    $card.='<a href="index.php?page=message&id='.$row[user_id_to].'"><div class="chat-container w3-hover-gray w3-text-black">
-    <img src="'.getUserAvatar($row['user_id_to']).'" alt="Avatar" width=60 height=60>
+    if($row[user_id_to]==$uid) $usr=$row[user_id_from];
+    else $usr=$row[user_id_to];
+    $card.='<a href="index.php?page=message&id='.$usr.'"><div class="chat-container w3-hover-gray w3-text-black">
+    <img src="'.getUserAvatar($usr).'" alt="Avatar" width=60 height=60>
     <h4>'.$row["name"].'</h4>';
     $sql="SELECT * FROM discussion_chat WHERE chat_id=$row[chat_id] ORDER BY cdatetime DESC";
     $result1 = mysqli_query($con,$sql);
@@ -17,7 +19,7 @@ while($row=$result->fetch_assoc()){
     <span class="time-right">'.$chatrow["cdatetime"].'</span>
 </div></a>';
 }
-
+/*
 $query = "SELECT chat_id, user_id_from, user_id_to, name FROM discussion_chatmaster, users WHERE discussion_chatmaster.user_id_from=users.id AND discussion_chatmaster.user_id_to=$uid";
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
@@ -32,7 +34,7 @@ while($row=$result->fetch_assoc()){
     <span class="time-right">'.$chatrow["cdatetime"].'</span>
 </div></a>';
 }
-
+*/
 ?>
 <ol class="breadcrumb w3-card-2">
     <li class="breadcrumb-item"><a href="index.php">Home</a><i class="fa fa-angle-right"></i>Chats</li>

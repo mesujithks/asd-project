@@ -14,7 +14,7 @@
         $card.='
                 <div class="w3-third">
                     <div class="w3-card-4" style="width:92%;max-width:300px;margin-top:12px;">
-                        <img src="'.getUserAvatar($fid).'" alt="Avatar" style="width:100%;opacity:0.85">
+                        <img src="'.getUserAvatar($fid).'" alt="Avatar" style="width:100%;opacity:0.85" height=300>
                         <div class="w3-container">
                             <h4><b>'.$row1['name'].'</b></h4>    
                             <p>

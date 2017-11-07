@@ -6,22 +6,19 @@ $query="SELECT * FROM discussion_question,discussion_subtopic,users WHERE discus
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
     $card.='<a href="index.php?page=question-view&qid='.$row['question_id'].'&sbtid='.$row['subtopic_id'].'&sbname='.$row['subtopic_name'].'">
-    <div class="w3-card-2" style="width:100%;margin-top:12px;">
+    <div class="w3-card-2 w3-hover-gray w3-text-black" style="width:100%;margin-top:12px;">
         <header class="w3-container w3-teal">
             <h4>'.$row['heading'].'</h4>
         </header>
-        <div class="w3-container">
-            <div class="w3-row-padding w3-margin">
-                <div class="w3-col w3-center w3-border w3-cell w3-mobile" style="width:15%">
-                    <p><img class="prfil-pic w3-card-2" width=50 height=50 src="'.getUserAvatar($row['user_id']).'"></img></p>
-                    <p><strong>'.$row['name'].'</strong></p>
-                </div>
-                <div class="w3-col w3-cell w3-mobile" style="width:85%">
-                    <p>'.$row['question_detail'].'</p>
-                    <p><strong>Posted On: </strong>'.$row['datetime'].'
-                </div>
-            </div>
+        <div class="dis-container chat-container w3-hover-gray">
+        <div class="left">
+            <img src="'.getUserAvatar($row['user_id']).'" alt="Avatar" width=60 height=60><br><br>
+            <p class="w3-center" style="margin-top:10px;">'.$row['name'].'</p>
         </div>
+        <p>'.$row['question_detail'].'</p>
+        <span class="time-left"><strong>Posted On: </strong>'.$row['datetime'].'</span>
+    </div>
+    </div>
      </div>
      </a>';
 
@@ -48,7 +45,7 @@ while($row=$result->fetch_assoc()){
             <h3>Recently Asked Questions</h3>
         </header>
         <div class="w3-container">
-            <?php echo $card; ?>
-        </div>
+            <?php echo $card; ?>     
     </div>
 </div>
+<div>

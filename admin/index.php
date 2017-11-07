@@ -24,6 +24,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 	}
 
+	function getName(){
+		$fid=$_SESSION['user_id'];
+		require('../connection.php');
+		$query="SELECT * FROM `users` WHERE id=$fid";
+        $result = mysqli_query($con,$query) or die(mysqli_error());
+        $row=$result->fetch_assoc();
+        return $row["name"];
+	}
 	
 	function getAvatar(){
 		$aid=$_SESSION['user_id'];
@@ -63,21 +71,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Bootstrap Core CSS -->
-<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<link href="../css/bootstrap.min.css" rel='stylesheet' type='text/css' />
 <link href="../css/w3.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
-<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="../css/style.css" rel='stylesheet' type='text/css' />
 <link href="../css/chat.css" rel='stylesheet' type='text/css' />
-<link rel="stylesheet" href="css/morris.css" type="text/css"/>
+<link rel="stylesheet" href="../css/morris.css" type="text/css"/>
 <!-- Graph CSS -->
-<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="../css/font-awesome.css" rel="stylesheet"> 
 <!-- jQuery -->
-<script src="js/jquery-2.1.4.min.js"></script>
+<script src="../js/jquery-2.1.4.min.js"></script>
 <!-- //jQuery -->
 <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
 <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 <!-- lined-icons -->
-<link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+<link rel="stylesheet" href="../css/icon-font.min.css" type='text/css' />
 <!-- //lined-icons -->
 <style>
 	.four i.glyphicon {
@@ -111,16 +119,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
              <!--header start here-->
 				<div class="header-main">
 					<div class="logo-w3-agile w3-pink w3-text-white w3-card-2">
-								<img src="images/logo.png" width="50px" height="50px"><b>  Course Portal</b>
+								<img src="../images/logo.png" width="50px" height="50px"><b>  Course Portal</b>
 							</div>
 					<div class="w3layouts-left w3-card-2">
 							
 							<!--search-box-->
 								<div class="w3-search-box w3-card-2">
-									<form action="#" method="post">
-										<input type="text" placeholder="Search..." required="">	
-										<input type="submit" value="">					
-									</form>
+								<form action="index.php?page=search" method="post">
+								<input type="text" placeholder="Search..." name="name" required="">	
+								<input type="submit" name="submit" value="">					
+							</form>
 								</div><!--//end-search-box-->
 							<div class="clearfix"> </div>
 						 </div>
@@ -128,42 +136,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<div class="profile_details_left "><!--notifications of menu start -->
 								<ul class="nofitications-dropdown">
 									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">0</span></a>
 										<ul class="dropdown-menu">
 											<li>
 												<div class="notification_header">
-													<h3>You have 3 new messages</h3>
+													<h3>You have 0 new messages</h3>
 												</div>
 											</li>
-											<li><a href="#">
-											   <div class="user_img"><img src="images/in11.jpg" alt=""></div>
-											   <div class="notification_desc">
-												<p>Lorem ipsum dolor</p>
-												<p><span>1 hour ago</span></p>
-												</div>
-											   <div class="clearfix"></div>	
-											</a></li>
-											<li class="odd"><a href="#">
-												<div class="user_img"><img src="images/in10.jpg" alt=""></div>
-											   <div class="notification_desc">
-												<p>Lorem ipsum dolor </p>
-												<p><span>1 hour ago</span></p>
-												</div>
-											  <div class="clearfix"></div>	
-											</a></li>
-											<li><a href="#">
-											   <div class="user_img"><img src="images/in9.jpg" alt=""></div>
-											   <div class="notification_desc">
-												<p>Lorem ipsum dolor</p>
-												<p><span>1 hour ago</span></p>
-												</div>
-											   <div class="clearfix"></div>	
-											</a></li>
-											<li>
-												<div class="notification_bottom">
-													<a href="#">See all messages</a>
-												</div> 
-											</li>
+											
 										</ul>
 									</li>
 									<li class="dropdown head-dpdn">
@@ -183,54 +163,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										</ul>
 									</li>	
 									<li class="dropdown head-dpdn">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">9</span></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i><span class="badge blue1">0</span></a>
 										<ul class="dropdown-menu">
 											<li>
 												<div class="notification_header">
-													<h3>You have 8 pending task</h3>
+													<h3>You have 0 pending task</h3>
 												</div>
 											</li>
-											<li><a href="#">
-												<div class="task-info">
-													<span class="task-desc">Database update</span><span class="percentage">40%</span>
-													<div class="clearfix"></div>	
-												</div>
-												<div class="progress progress-striped active">
-													<div class="bar yellow" style="width:40%;"></div>
-												</div>
-											</a></li>
-											<li><a href="#">
-												<div class="task-info">
-													<span class="task-desc">Dashboard done</span><span class="percentage">90%</span>
-												   <div class="clearfix"></div>	
-												</div>
-												<div class="progress progress-striped active">
-													 <div class="bar green" style="width:90%;"></div>
-												</div>
-											</a></li>
-											<li><a href="#">
-												<div class="task-info">
-													<span class="task-desc">Mobile App</span><span class="percentage">33%</span>
-													<div class="clearfix"></div>	
-												</div>
-											   <div class="progress progress-striped active">
-													 <div class="bar red" style="width: 33%;"></div>
-												</div>
-											</a></li>
-											<li><a href="#">
-												<div class="task-info">
-													<span class="task-desc">Issues fixed</span><span class="percentage">80%</span>
-												   <div class="clearfix"></div>	
-												</div>
-												<div class="progress progress-striped active">
-													 <div class="bar  blue" style="width: 80%;"></div>
-												</div>
-											</a></li>
-											<li>
-												<div class="notification_bottom">
-													<a href="#">See all pending tasks</a>
-												</div> 
-											</li>
+											
 										</ul>
 									</li>	
 									<div class="clearfix"> </div>
@@ -248,8 +188,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 											<div class="profile_img">	
 												<span class="prfil-img"><img src="<?php echo getAvatar(); ?>" alt=""> </span> 
 												<div class="user-name">
-													<p>Malorum</p>
-													<span>Administrator</span>
+													<p><?php echo getName(); ?></p>
+													<span>Admin</span>
 												</div>
 												<i class="fa fa-angle-down"></i>
 												<i class="fa fa-angle-up"></i>
@@ -258,7 +198,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										</a>
 										<ul class="dropdown-menu drp-mnu">
 											<li> <a href="index.php?page=profile-edit"><i class="fa fa-cog"></i> Settings</a> </li> 
-											<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
+										
 											<li> <a href="../logout.php"><i class="fa fa-sign-out"></i> Logout</a> </li>
 										</ul>
 									</li>
@@ -288,7 +228,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "view-faculty":	include("view-faculty.php"); break;
 				case "search":	include("search.php"); break;
 				case "message":	include("message.php"); break;
-				case "chat":	include("chat.php"); break;
+				case "chat":	include("chat.php"); break;	
+				case "notice":	include("notice.php"); break;
+				case "add-notice":	include("add-notice.php"); break;
+				case "exam":	include("exam-home.php"); break;
+				case "exam-question":	include("exam-question.php"); break;
+				case "result":	include("result.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  
@@ -343,11 +288,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                            <div class="menu">
 									<ul id="menu" >
 										<li><a href="index.php"><i class="fa fa-tachometer"></i> <span title="Dashboard">Dashboard</span><div class="clearfix"></div></a></li>
-										
-										
-										 <li id="menu-academico" ><a href="index.php?page=inbox"><i class="fa fa-envelope nav_icon"></i><span title="Inbox">Inbox</span><div class="clearfix"></div></a></li>
-										 <li><a href="index.php?page=notification"><i class="fa fa-bell" aria-hidden="true"></i><span title="Notifications">Notifications</span><div class="clearfix"></div></a></li>
-										 <li><a href="index.php?page=notice"><i class="fa fa-file-text" aria-hidden="true"></i><span title="Notice">Notice</span><div class="clearfix"></div></a></li>
+										  <li><a href="index.php?page=notice"><i class="fa fa-file-text" aria-hidden="true"></i><span title="Notice">Notice</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=faculty"><i class="fa fa-user" aria-hidden="true"></i><span title="Faculty">Faculty</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=student"><i class="fa fa-user" aria-hidden="true"></i><span title="Students">Students</span><div class="clearfix"></div></a></li>
 										 <li><a href="index.php?page=course"><i class="fa fa-folder-open" aria-hidden="true"></i><span title="Courses">Courses</span><div class="clearfix"></div></a></li>
@@ -389,14 +330,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										});
 							</script>
 <!--js -->
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
+<script src="../js/jquery.nicescroll.js"></script>
+<script src="../js/scripts.js"></script>
 <!-- Bootstrap Core JavaScript -->
-   <script src="js/bootstrap.min.js"></script>
+   <script src="../js/bootstrap.min.js"></script>
    <!-- /Bootstrap Core JavaScript -->	   
 <!-- morris JavaScript -->	
-<script src="js/raphael-min.js"></script>
-<script src="js/morris.js"></script>
+<script src="../js/raphael-min.js"></script>
+<script src="../js/morris.js"></script>
 <script>
 	$(document).ready(function() {
 		//BOX BUTTON SHOW AND CLOSE

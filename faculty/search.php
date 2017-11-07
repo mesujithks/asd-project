@@ -37,7 +37,7 @@ if(isset($submit)){
                     <div class="clearfix"> </div>
                     <div class="w3-row-padding">
                         <div class="w3-half">
-                            <input class="w3-input w3-border w3-margin-bottom w3-round" type="text" placeholder="Enter Name To Search.." name="name" required>
+                            <input class="w3-input w3-border w3-margin-bottom w3-round" type="text" placeholder="Enter Name To Search.." name="name" value="<?php echo $name; ?>" required>
                         </div>
                         <div class="w3-half">
                                 <button type="submit"  name="submit" class="w3-button w3-ripple w3-blue w3-hover-red w3-round">Search</button>
