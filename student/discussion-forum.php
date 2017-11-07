@@ -2,7 +2,7 @@
 require('../connection.php');
 $card="";
 $sid=$_SESSION['user_id'];
-$query="SELECT * FROM discussion_question,users,discussion_subtopic WHERE discussion_question.user_id=users.id AND discussion_subtopic.topic_id IN (SELECT crsId FROM student_courses_taken WHERE stdId=$sid) GROUP BY discussion_question.subtopic_id ORDER BY  datetime desc";
+$query="SELECT * FROM discussion_question,discussion_subtopic,users WHERE discussion_question.user_id=users.id AND discussion_question.subtopic_id=discussion_subtopic.subtopic_id AND discussion_subtopic.topic_id IN (SELECT crsId FROM student_courses_taken WHERE stdId=$sid) GROUP BY discussion_question.subtopic_id ORDER BY  datetime desc";
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
     $card.='<a href="index.php?page=question-view&qid='.$row['question_id'].'&sbtid='.$row['subtopic_id'].'&sbname='.$row['subtopic_name'].'">

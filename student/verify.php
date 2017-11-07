@@ -12,12 +12,8 @@
     $query = "UPDATE `students` SET `admno` = '$admno', `dept` = '$dept', `addrs` = '$addrs', `status` = 'complete' WHERE `students`.`studentId` = $sid";
     $result = mysqli_query($con,$query);
     if($result){
-      $query="INSERT INTO `notification` (`status`, `user_from`, `user_to`, `heading`, `description`, `page`) VALUES ('active', '$fid', '1', 'Faculty Join Request', 'Something...', 'faculty-request')";
-      $result = mysqli_query($con,$query);
-      if($result){
         $sstatus="w3-show";
         $smsg="Your details is submitted to the Administrator for approval.!";
-      }
     }
   }
 

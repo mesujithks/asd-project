@@ -74,6 +74,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="../css/w3.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="../css/chat.css" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="css/morris.css" type="text/css"/>
 <!-- Graph CSS -->
 <link href="css/font-awesome.css" rel="stylesheet"> 
@@ -317,6 +318,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "discussion-questions":	include("discussion-questions.php"); break;
 				case "question-view":	include("question-view.php"); break;
 				case "forum":	include("forum.php"); break;
+				case "search":	include("search.php"); break;
+				case "message":	include("message.php"); break;
+				case "chat":	include("chat.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  }

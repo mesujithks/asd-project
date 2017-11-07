@@ -67,6 +67,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <link href="../css/w3.css" rel='stylesheet' type='text/css' />
 <!-- Custom CSS -->
 <link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="../css/chat.css" rel='stylesheet' type='text/css' />
 <link rel="stylesheet" href="css/morris.css" type="text/css"/>
 <!-- Graph CSS -->
 <link href="css/font-awesome.css" rel="stylesheet"> 
@@ -285,6 +286,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				case "student":	include("student.php"); break;
 				case "view-student":	include("view-student.php"); break;
 				case "view-faculty":	include("view-faculty.php"); break;
+				case "search":	include("search.php"); break;
+				case "message":	include("message.php"); break;
+				case "chat":	include("chat.php"); break;
 				default : include("errorpage.php"); break;
 			}
 		  
