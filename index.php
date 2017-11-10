@@ -1,6 +1,7 @@
 <?php
   require("auth.php");
   require('connection.php');
+  $s="";
   require("login.php");
   require("signup.php");
 
@@ -54,6 +55,16 @@
     <link href="css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link href="css/plugin/YTPlayer.css" rel="stylesheet" type="text/css" />
 
+<script type="text/javascript">
+
+function showSnakbar(clr,msg) {
+   var x = document.getElementById("myDIV");
+   x.innerHTML=msg;
+   x.className += clr+" showsnack";
+   setTimeout(function(){ x.className = x.className.replace(clr+" showsnack", ""); }, 3000);
+}
+
+</script>
 
 <style>
 #canvas{
@@ -95,9 +106,51 @@ body, html {
     width:35%;
 }
 @media (max-width:600px){.w3-display-right{position:absolute;left:50%;bottom:0;transform:translate(-50%,0%);-ms-transform:translate(-50%,0%)}.w3-padding{padding:0px 0px!important}.login-width{width:90%;}}
+
+#myDIV {
+    visibility: hidden;
+    min-width: 300px;
+    background-color: #255;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    margin-left: -150px;
+}
+
+.showsnack {
+    visibility: visible !important;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}document.getElementsByClassName("city")
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
 </style>
 <body>
 
+</script>
 <!-- Preloader -->
 <section id="preloader">
         <div class="loader" id="loader">
@@ -160,7 +213,6 @@ body, html {
           <input class="w3-input w3-border w3-margin-bottom w3-round w3-card-2" type="text" placeholder="Enter Username" name="username" required>
           <label><b>Password</b></label>
           <input class="w3-input w3-border w3-round w3-card-2" type="password" placeholder="Enter Password" name="password" required>
-          <span class="w3-red w3-centre"><?php echo "<br />$passwordErr"; ?></span>
           <button class="w3-button w3-block w3-blue w3-section w3-padding w3-margin-top w3-hover-green w3-round w3-card-2 w3-ripple" type="submit">Login</button>
           <input class="w3-check" type="checkbox" name="remember" checked="checked"> Remember me
           <span class="w3-right w3-padding">Forgot <a href="tryit.asp%3Ffilename=tryw3css_modal_login.html#">password?</a></span>
@@ -239,10 +291,11 @@ body, html {
   </div>
 </section>
 </header>
-
+<div id="myDIV" class="w3-card w3-round ">Some text some message..</div>
+<?php echo $s; ?>
 <!-- About Section -->
-<div class="w3-container" style="padding:128px 16px" id="about">
-  <h3 class="w3-center">ABOUT THE COURSE PORTAL</h3>
+<div class="w3-container box" style="padding:128px 16px" id="about">
+  <h3 class="w3-center icon">ABOUT THE COURSE PORTAL</h3>
   <p class="w3-center w3-large">
   This project aims at creating a Courses portal for a campus/organization. This allows registered users of the system to join a course available in the site and access the materials published for the course. People can register themselves as students of a course or Faculty for a course. When a person registers himself as a Faculty, an approval mechanism is triggered which sends an email to the Administrator for approving the person as a Faculty. There will be an admin approval page where admin can approve the faculty members for the course.
 
@@ -252,8 +305,8 @@ The main purpose of this project is to help students who need more knowledge on 
 </div>
 
 <!-- Course Section -->
-<div class="w3-container w3-light-grey" style="padding:128px 16px" id="course">
-  <h3 class="w3-center">COURSES</h3>
+<div class="w3-container w3-light-grey box" style="padding:128px 16px" id="course">
+  <h3 class="w3-center icon">COURSES</h3>
   <p class="w3-center w3-large">Courses availble here..!</p>
   <div class="w3-row-padding " style="margin-top:64px">
   
@@ -263,25 +316,24 @@ The main purpose of this project is to help students who need more knowledge on 
 </div>
 
 <!-- Promo Section "Statistics" -->
-<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64">
+<div class="w3-container w3-row w3-center w3-dark-grey w3-padding-64 box">
   <div class="w3-third">
     <span class="w3-button w3-circle w3-red w3-card-2 w3-xlarge  w3-hover-red"><?php echo getCount(0); ?>+</span>
-    <br><strong>Courses</strong>
+    <br><p><strong>Courses</strong></p>
   </div>
   <div class="w3-third">
     <span class="w3-button w3-circle w3-red w3-card-2 w3-xlarge  w3-hover-red"><?php echo getCount(1); ?>+</span>
-    <br><strong>Students</strong>
+    <br><p><strong>Students</strong></p>
   </div>
   <div class="w3-third">
     <span class="w3-button w3-circle w3-red w3-card-2 w3-xlarge  w3-hover-red"><?php echo getCount(2); ?>+</span>
-    <br><strong>Faculties</strong>
+    <br><p><strong>Faculties</strong></p>
   </div>
 </div>
 
-
 <!-- Contact Section -->
-<div class="w3-container w3-light-grey" style="padding:128px 16px" id="contact">
-  <h3 class="w3-center">CONTACT</h3>
+<div class="w3-container w3-light-grey box" style="padding:128px 16px" id="contact">
+  <h3 class="w3-center icon">CONTACT</h3>
   <p class="w3-center w3-large">Lets get in touch. Send us a message:</p>
   <div class="w3-row-padding" style="margin-top:64px">
     <div class="w3-half">
@@ -292,7 +344,7 @@ The main purpose of this project is to help students who need more knowledge on 
         <p><input class="w3-input w3-border w3-round " type="text" placeholder="Subject" required name="Subject"></p>
         <p><input class="w3-input w3-border w3-round " type="text" placeholder="Message" required name="Message"></p>
         <p>
-          <button class="w3-button w3-black w3-round w3-card-2 w3-hover-red w3-ripple" type="submit">
+          <button class="w3-button w3-black w3-round w3-card w3-hover-red w3-ripple" type="submit">
             <i class="fa fa-paper-plane"></i> SEND MESSAGE
           </button>
         </p>
@@ -300,7 +352,6 @@ The main purpose of this project is to help students who need more knowledge on 
     </div>
   </div>
 </div>
-
 <!-- Footer -->
 <footer class="w3-center w3-theme-d5 w3-padding-64">
   <a href="#home" class="w3-button w3-light-grey w3-round w3-card-2"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
@@ -328,7 +379,9 @@ The main purpose of this project is to help students who need more knowledge on 
 <!-- Animated background color -->
 <script src="js/jquery.min.js"></script>
 <script src="js/color.js"></script>
-
+<script src="js/jquery.js"></script>
+<script src="js/animate.js"></script>
+<script src="js/custom.js"></script>
 <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
     <script src="js/plugin/jquery.easing.js" type="text/javascript"></script>
     <script src="js/jquery-ui.min.js" type="text/javascript"></script>

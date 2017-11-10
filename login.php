@@ -2,7 +2,8 @@
     require('connection.php');
 	
 	$usenameErr=$passwordErr=$username=$password="";
-	$flag=0;
+    $flag=0;
+
    
     if ($_SERVER["REQUEST_METHOD"]=="POST" && $_POST['action']=="login"){
         if(!isset($_SESSION["username"])){
@@ -28,7 +29,10 @@
                     case "student": header("Location: student/index.php"); break;
                     default : header("Location: index.php"); break; 
                 }
-            }else $passwordErr="Invalid Username/Password, Try again.!";
+            }else {$s= '<script>
+                showSnakbar("w3-red","Invalid Username/Password, Try again.!");
+                </script>';
+            }
         }else {
             header("Location: index.php");
             exit();

@@ -34,13 +34,13 @@ if(getChatId($frmid,$toid)!=-1){
     $result = mysqli_query($con,$query);
     while($row=$result->fetch_assoc()){
         if ($row["user_id"] == $frmid){
-            $card.='<div class="chat-container darker">
+            $card.='<div class="chat-container darker" style="width:50%">
             <img src="'.getUserAvatar($frmid).'" alt="Avatar" class="right" width=60 height=60>
             <p>'.$row["message"].'</p>
             <span class="time-left">'.$row["cdatetime"].'</span>
         </div>';
         }else {
-            $card.='<div class="chat-container">
+            $card.='<div class="chat-container" style="width:50%">
             <img src="'.getUserAvatar($toid).'" alt="Avatar" width=60 height=60>
             <p>'.$row["message"].'</p>
             <span class="time-right">'.$row["cdatetime"].'</span>
@@ -76,9 +76,9 @@ function getChatId($frm,$to){
                     <span><?php echo $type; ?></span>
             </div>
         </div>
-
+        <div style="">
         <?php echo $card; ?>
-
+    </div>
         
         <form method="POST">
                 <div class="vali-form w3-border-top w3-border-green">

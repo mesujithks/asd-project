@@ -6,6 +6,7 @@
     $display="w3-hide";
     $headm="";
     $msg="";
+
     $flag = 0;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['action']=="signup") {
@@ -39,10 +40,9 @@
                 }
                 
                 if ($flag) {
-                    $color="w3-green";
-                    $display="w3-show";
-                    $headm="Success!";
-                    $msg="You are succesfully registered. Please login below..!";
+                    $s= '<script>
+                    showSnakbar("w3-green","You are succesfully registered. Please login..!!");
+                    </script>';
                 } else {
                     $query = "DELETE `users` WHERE email='$email'";
                     $result = mysqli_query($con, $query);

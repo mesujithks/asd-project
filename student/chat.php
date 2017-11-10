@@ -2,7 +2,7 @@
 require('../connection.php');
 $card="";
 $uid=$_SESSION['user_id'];
-$query = "SELECT discussion_chatmaster.chat_id, user_id_from, user_id_to, name, cdatetime FROM discussion_chatmaster, users,discussion_chat WHERE discussion_chatmaster.user_id_from=users.id AND discussion_chat.chat_id=discussion_chatmaster.chat_id AND discussion_chatmaster.user_id_to=$uid GROUP BY discussion_chatmaster.chat_id UNION SELECT discussion_chatmaster.chat_id, user_id_from, user_id_to, name, cdatetime FROM discussion_chatmaster, users,discussion_chat WHERE discussion_chatmaster.user_id_to=users.id AND discussion_chat.chat_id=discussion_chatmaster.chat_id AND discussion_chatmaster.user_id_from=$uid GROUP BY discussion_chatmaster.chat_id ORDER BY cdatetime DESC";
+$query = "SELECT discussion_chatmaster.chat_id, user_id_from, user_id_to, name, cdatetime FROM discussion_chatmaster, users,discussion_chat WHERE discussion_chatmaster.user_id_from=users.id AND discussion_chat.chat_id=discussion_chatmaster.chat_id AND discussion_chatmaster.user_id_to=$uid GROUP BY discussion_chatmaster.chat_id UNION SELECT discussion_chatmaster.chat_id, user_id_from, user_id_to, name, cdatetime FROM discussion_chatmaster, users,discussion_chat WHERE discussion_chatmaster.user_id_to=users.id AND discussion_chat.chat_id=discussion_chatmaster.chat_id AND discussion_chatmaster.user_id_from=$uid GROUP BY discussion_chatmaster.chat_id ORDER BY cdatetime";
 $result = mysqli_query($con,$query);
 while($row=$result->fetch_assoc()){
     if($row[user_id_to]==$uid) $usr=$row[user_id_from];
